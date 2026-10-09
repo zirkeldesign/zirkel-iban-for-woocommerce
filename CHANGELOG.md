@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-10-09
+
+### Fixed
+- `phpunit.integration.xml` is no longer packaged: `.distignore` only excluded `phpunit.xml`.
+- The release deploy copied all of `.wordpress-org/assets` into SVN, so `banner.svg` and the README landed there next to the served art. `bin/stage-wporg-assets.sh` now holds the one list of deployable files, used by both deploy workflows, and the assets deploy deletes anything in SVN `assets/` that is not on it.
+- The release deploy installs `dist-archive` with the same pin, auth and retry fixes as the test workflow.
+
 ### Added
 - CI now runs Plugin Check against the built zip and a translation completeness
   check. Both cover failure modes nothing caught before: "Tested up to" drift is
