@@ -88,6 +88,11 @@ jobs:
           bin/stage-wporg-assets.sh build/wporg-assets >/dev/null
 
       - name: WordPress Plugin Deploy
+        id: deploy
+        # Large SVN commits regularly fail on the client ("Connection reset by
+        # peer", a missing transaction file) after the server has accepted
+        # them. The next step decides from what actually landed in SVN.
+        continue-on-error: true
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
           # generate-zip is a composite action *input*; as an env var it is
@@ -102,6 +107,21 @@ jobs:
           # copies its assets/ subdir into SVN assets/, giving a nested
           # assets/assets/ that serves no art at all.
           ASSETS_DIR: build/wporg-assets
+
+      - name: Verify the release in SVN after a reported failure
+        if: steps.deploy.outcome == 'failure'
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          command -v svn >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq subversion; }
+          VERSION="${TAG#v}"
+          if bin/verify-svn-release.sh "$SLUG" "$VERSION" "build/${SLUG}"; then
+            echo "::warning::The SVN commit reported an error, but tags/${VERSION} and trunk match the build. Treating the deploy as successful."
+          else
+            echo "::error::The release did not reach WordPress.org SVN intact."
+            exit 1
+          fi
 
       # Without this the Releases page only offers GitHub's auto-generated
       # source archive, which is not an installable plugin - and in this
