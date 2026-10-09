@@ -4,7 +4,7 @@
  * Plugin Name:       Zirkel Virtual IBAN for WooCommerce
  * Plugin URI:        https://github.com/zirkeldesign/zirkel-iban-for-woocommerce
  * Description:       Accept reconciled bank transfer payments in WooCommerce via Stripe. Each order gets unique virtual bank account details (SEPA/ACH/Bacs/SPEI), and webhooks mark the order paid automatically.
- * Version:           1.0.2
+ * Version:           1.1.0
  * Author:            zirkel.design
  * Author URI:        https://zirkel.design
  * License:           GPL-2.0-or-later
@@ -27,7 +27,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('BTPW_VERSION', '1.0.2');
+define('BTPW_VERSION', '1.1.0');
 define('BTPW_FILE', __FILE__);
 define('BTPW_DIR', plugin_dir_path(__FILE__));
 define('BTPW_URL', plugin_dir_url(__FILE__));
