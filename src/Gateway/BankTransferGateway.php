@@ -372,7 +372,12 @@ final class BankTransferGateway extends WC_Payment_Gateway
         $data = [
             'amount' => $this->get_order_total_in_cents($order),
             'currency' => strtolower($order->get_currency()),
-            'payment_method_types' => ['customer_balance'],
+            // API 2026-09-30.endive dropped the writable payment_method_types.
+            // Dynamic payment methods are no substitute: this intent is
+            // confirmed on the spot with a customer_balance payment method, so
+            // it must accept exactly that type and nothing the account's
+            // dashboard settings happen to add.
+            'allowed_payment_method_types' => ['customer_balance'],
             'payment_method_data' => [
                 'type' => 'customer_balance',
             ],

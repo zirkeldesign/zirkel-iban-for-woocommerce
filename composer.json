@@ -30,7 +30,7 @@
     },
     "require": {
         "php": "^8.3",
-        "stripe/stripe-php": "^21.0"
+        "stripe/stripe-php": "^22.0"
     },
     "require-dev": {
         "laravel/pint": "^1.27",

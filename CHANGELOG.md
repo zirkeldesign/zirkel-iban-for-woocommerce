@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-09
+
+### Changed
+- stripe-php 22 and Stripe API version `2026-09-30.endive` (from 21.3.2 and `2026-08-26.dahlia`). Endive removed the writable `payment_method_types` on PaymentIntents, so the bank transfer intent now passes `allowed_payment_method_types: ['customer_balance']`. Dynamic payment methods were not an option: the intent is confirmed on creation with a `customer_balance` payment method, and without an explicit list Stripe falls back to the dashboard's payment methods and demands a `return_url`. The allowed list cannot be combined with `payment_method_configuration`, so it replaces the dashboard configuration rather than filtering it, and the gateway keeps working when a merchant has bank transfers switched off there, as before.
+
 ## [1.0.2] - 2026-10-09
 
 ### Fixed

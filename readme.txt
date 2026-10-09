@@ -4,7 +4,7 @@ Tags: bank transfer, vorkasse, banküberweisung, sepa, iban
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.3
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,9 @@ Since 9 October 2025 every SEPA transfer in the EU/EEA goes through Verification
 Bank transfers cannot be charged automatically, so subscription renewals are always manual: each renewal issues a fresh virtual bank account for the customer to pay. This is available as an optional add-on feature.
 
 == Changelog ==
+
+= 1.1.0 =
+* Improved: Updated to the latest Stripe API version and Stripe PHP library.
 
 = 1.0.2 =
 * Improved: Smaller download, a developer configuration file is no longer included.
