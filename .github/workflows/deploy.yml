@@ -22,15 +22,49 @@ jobs:
         with:
           php-version: '8.3'
           tools: composer, wp-cli
+        env:
+          # Same as tests.yml: the anonymous GitHub API rate limit is what makes
+          # setup-php fail to resolve wp-cli on shared runners.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ensure wp-cli is present
+        # setup-php only warns when the wp-cli install fails. See tests.yml.
+        run: |
+          if command -v wp >/dev/null 2>&1; then
+            echo "wp-cli present: $(wp --version --allow-root)"
+            exit 0
+          fi
+          echo "::warning::setup-php did not provide wp-cli; installing the phar directly."
+          curl -fsSL -o /tmp/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x /tmp/wp-cli.phar
+          sudo mv /tmp/wp-cli.phar /usr/local/bin/wp
+          wp --version --allow-root
 
       # Unlike the sibling plugins, this one HAS a runtime dependency
       # (stripe/stripe-php), and it must be namespace-scoped before shipping or
       # it can collide with another Stripe plugin's bundled copy. We therefore
       # build with the same script used locally rather than letting the deploy
-      # action package the raw checkout — the shipped tree must be the one that
+      # action package the raw checkout - the shipped tree must be the one that
       # was tested through Plugin Check.
       - name: Install wp-cli dist-archive
-        run: wp package install wp-cli/dist-archive-command --allow-root
+        # Mirrors tests.yml, where each of these lines fixed a real CI failure:
+        # no Composer auth (setup-php's token is rejected), HTTPS instead of SSH
+        # clones, v3.1.0 pinned because newer tags need a wp-cli that setup-php
+        # does not ship, and retries for the 10s clone timeout.
+        env:
+          COMPOSER_AUTH: '{}'
+        run: |
+          composer global config --no-plugins --unset github-oauth.github.com 2>/dev/null || true
+          composer global config --no-plugins github-protocols https 2>/dev/null || true
+          for attempt in 1 2 3; do
+            if wp package install wp-cli/dist-archive-command:v3.1.0 --allow-root; then
+              exit 0
+            fi
+            echo "::warning::dist-archive install failed (attempt ${attempt}/3); retrying in $((attempt * 10))s."
+            sleep $((attempt * 10))
+          done
+          echo "::error::Could not install wp-cli/dist-archive-command after 3 attempts."
+          exit 1
 
       - name: Build the scoped distribution
         run: composer dist
@@ -46,7 +80,7 @@ jobs:
           # Fail loudly rather than shipping an unscoped SDK: the whole point of
           # the build step is that vendor-prefixed/ exists.
           test -d "build/${SLUG}/vendor-prefixed" \
-            || { echo "::error::vendor-prefixed/ missing — Strauss did not run"; exit 1; }
+            || { echo "::error::vendor-prefixed/ missing - Strauss did not run"; exit 1; }
           echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
 
       - name: WordPress Plugin Deploy
@@ -66,7 +100,7 @@ jobs:
           ASSETS_DIR: .wordpress-org/assets
 
       # Without this the Releases page only offers GitHub's auto-generated
-      # source archive, which is not an installable plugin — and in this
+      # source archive, which is not an installable plugin - and in this
       # plugin's case would also lack the scoped SDK entirely.
       - name: Attach the built zip to the release
         env:
