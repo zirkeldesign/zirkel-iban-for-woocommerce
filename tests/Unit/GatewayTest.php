@@ -38,7 +38,8 @@ describe('BankTransferGateway::build_payment_intent_data', function (): void {
 
         expect($data['amount'])->toBe(10000)
             ->and($data['currency'])->toBe('eur')
-            ->and($data['payment_method_types'])->toBe(['customer_balance'])
+            ->and($data['allowed_payment_method_types'])->toBe(['customer_balance'])
+            ->and($data)->not->toHaveKey('payment_method_types')
             ->and($data['payment_method_data']['type'])->toBe('customer_balance')
             ->and($data['payment_method_options']['customer_balance']['funding_type'])->toBe('bank_transfer')
             ->and($data['payment_method_options']['customer_balance']['bank_transfer']['type'])->toBe('eu_bank_transfer')

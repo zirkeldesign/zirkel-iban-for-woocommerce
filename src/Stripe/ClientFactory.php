@@ -31,7 +31,7 @@ final class ClientFactory
      * from the SDK so that updating the SDK cannot silently change the API
      * behaviour the plugin was tested against.
      */
-    public const API_VERSION = '2026-08-26.dahlia';
+    public const API_VERSION = '2026-09-30.endive';
 
     /**
      * Optional test override: a closure receiving the secret key and returning
