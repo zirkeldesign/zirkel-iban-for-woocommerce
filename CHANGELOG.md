@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- A release deploy no longer goes red when the SVN commit reports an error after WordPress.org has accepted it, which happened on 1.0.1 and 1.1.0. On a reported failure, `bin/verify-svn-release.sh` compares `tags/<version>` with the build and trunk with the tag, and only a real mismatch or a missing tag fails the run.
+
 ## [1.1.0] - 2026-10-09
 
 ### Changed
