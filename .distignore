@@ -15,6 +15,7 @@
 phpstan.neon
 pint.json
 phpunit.xml
+phpunit.integration.xml
 composer.lock
 package.json
 package-lock.json
@@ -45,7 +46,7 @@ Thumbs.db
 # Business/planning docs (not part of the install)
 docs
 
-# Secrets and local test environments — MUST never be packaged.
+# Secrets and local test environments: MUST never be packaged.
 # wp dist-archive uses this file INSTEAD of .gitignore, so entries there do
 # not protect the built zip.
 .stripe-test-key

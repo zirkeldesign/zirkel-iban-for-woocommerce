@@ -47,22 +47,22 @@ jobs:
 
           svn checkout "https://plugins.svn.wordpress.org/${SLUG}/assets" svn-assets
 
-          # Guard against the nested-assets shape a misconfigured plugin-deploy
-          # run produces (assets/assets/…), which serves no art at all.
-          if [ -e svn-assets/assets ]; then
-            svn delete --force svn-assets/assets
-          fi
-
-          # Only the files WordPress.org actually uses. banner.svg stays in the
-          # repo as the editable source but is not deployed.
-          cp .wordpress-org/assets/icon.svg \
-             .wordpress-org/assets/icon-256x256.png \
-             .wordpress-org/assets/icon-128x128.png \
-             .wordpress-org/assets/banner-772x250.png \
-             .wordpress-org/assets/banner-1544x500.png \
-             svn-assets/
+          # Only the files WordPress.org actually uses; the list lives in the
+          # script so the release deploy ships the same set.
+          wanted=$(bin/stage-wporg-assets.sh svn-assets)
 
           cd svn-assets
+
+          # A true sync, not just an upload: anything SVN holds that is not on
+          # the list goes. That covers a nested assets/ from a misconfigured
+          # release deploy as well as sources such as banner.svg or README.md
+          # that an earlier release copied over wholesale.
+          for entry in $(svn ls); do
+            name="${entry%/}"
+            if ! grep -qxF "$name" <<< "$wanted"; then
+              svn delete --force "$name"
+            fi
+          done
 
           # Stage any new files (already-versioned ones are skipped).
           svn add --force . >/dev/null
