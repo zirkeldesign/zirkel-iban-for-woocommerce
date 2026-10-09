@@ -40,7 +40,7 @@ jobs:
     strategy:
       matrix:
         # The plugin's floor is 8.3 (composer platform pin), so test it there
-        # too — an 8.4-only matrix would not catch a syntax or stdlib feature
+        # too - an 8.4-only matrix would not catch a syntax or stdlib feature
         # that the declared minimum cannot run.
         php: ['8.3', '8.4']
     steps:

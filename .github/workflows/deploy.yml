@@ -82,6 +82,10 @@ jobs:
           test -d "build/${SLUG}/vendor-prefixed" \
             || { echo "::error::vendor-prefixed/ missing - Strauss did not run"; exit 1; }
           echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
+          # Only the art WordPress.org serves. Pointing ASSETS_DIR at
+          # .wordpress-org/assets directly also shipped banner.svg and the
+          # README that sit there as sources.
+          bin/stage-wporg-assets.sh build/wporg-assets >/dev/null
 
       - name: WordPress Plugin Deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
@@ -94,10 +98,10 @@ jobs:
           SVN_PASSWORD: ${{ secrets.WPORG_SVN_PASSWORD }}
           SLUG: ${{ env.SLUG }}
           BUILD_DIR: ./build/${{ env.SLUG }}
-          # The icon/banner live in .wordpress-org/assets. Without this the
-          # action defaults ASSETS_DIR to .wordpress-org and copies the whole
-          # assets/ subdir into SVN assets/ → nested assets/assets/ (broken art).
-          ASSETS_DIR: .wordpress-org/assets
+          # Without this the action defaults ASSETS_DIR to .wordpress-org and
+          # copies its assets/ subdir into SVN assets/, giving a nested
+          # assets/assets/ that serves no art at all.
+          ASSETS_DIR: build/wporg-assets
 
       # Without this the Releases page only offers GitHub's auto-generated
       # source archive, which is not an installable plugin - and in this
