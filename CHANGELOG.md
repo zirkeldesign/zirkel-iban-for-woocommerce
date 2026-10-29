@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-10-29
+
+### Security
+- stripe-php 22.0.1. It replaces the bundled CA certificates with Stripe's current trusted roots; the old bundle still contained emSign ECC Root CA - G3, whose intermediate CAs were compromised. stripe-php verifies every API connection against this bundle by default.
+
+### Changed
+- Dev tooling: PHPStan 2.3.4, WordPress stubs 7.1.2, WooCommerce stubs 11.2.0, Playwright 1.64.1.
+
 ## [1.1.1] - 2026-10-28
 
 ### Fixed
