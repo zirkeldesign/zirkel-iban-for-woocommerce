@@ -127,6 +127,30 @@ describe('reading a credential', function (): void {
     });
 });
 
+describe('offering the payment method', function (): void {
+    beforeEach(function (): void {
+        btpw_test_set_gateway_setting('enabled', 'yes');
+        btpw_test_set_gateway_setting('testmode', 'yes');
+    });
+
+    it('hides it when the key in use cannot be read', function (): void {
+        $GLOBALS['btpw_test_secret_read_error'] = new WP_Error('secret_key_unavailable', 'No key');
+
+        expect((new BankTransferGateway)->is_available())->toBeFalse();
+    });
+
+    it('keeps it when only the key for the other mode cannot be read', function (): void {
+        btpw_test_set_gateway_setting('test_secret_key', 'sk_test_option');
+        $GLOBALS['btpw_test_secret_read_error'] = new WP_Error('secret_key_unavailable', 'No key');
+
+        expect((new BankTransferGateway)->is_available())->toBeTrue();
+    });
+
+    it('keeps it for a site that has simply not entered a key yet', function (): void {
+        expect((new BankTransferGateway)->is_available())->toBeTrue();
+    });
+});
+
 describe('saving the settings', function (): void {
     it('moves a credential into the Secrets API and empties the field', function (): void {
         $gateway = btpw_test_save_gateway(['test_secret_key' => 'sk_test_new']);

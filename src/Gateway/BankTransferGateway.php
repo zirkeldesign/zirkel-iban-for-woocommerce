@@ -390,6 +390,12 @@ final class BankTransferGateway extends WC_Payment_Gateway
             return false;
         }
 
+        // Only when it costs the key in use: an unreadable key for the other
+        // mode, or a key reused from another Stripe plugin, can still take orders.
+        if ($this->credentials_unreadable && $this->secret_key === '') {
+            return false;
+        }
+
         if (! function_exists('WC') || WC()->cart === null) {
             return true; // Admin or REST context: nothing to measure.
         }
