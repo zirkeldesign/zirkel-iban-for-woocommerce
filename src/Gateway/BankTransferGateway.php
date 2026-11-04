@@ -13,6 +13,7 @@ use WC_Payment_Gateway;
 use WP_Error;
 use ZirkelDesign\BankTransfersForWooCommerce\Payment\GiroCode;
 use ZirkelDesign\BankTransfersForWooCommerce\Stripe\ClientFactory;
+use ZirkelDesign\BankTransfersForWooCommerce\Stripe\Credentials;
 use ZirkelDesign\BankTransfersForWooCommerce\Stripe\PluginIntegration;
 
 if (! defined('ABSPATH')) {
@@ -61,6 +62,9 @@ final class BankTransferGateway extends WC_Payment_Gateway
     public string $order_status_awaiting = 'awaiting-transfer';
 
     public string $secret_key = '';
+
+    /** A credential exists in the Secrets API but could not be read. */
+    private bool $credentials_unreadable = false;
 
     /**
      * Stripe SDK client.
@@ -142,6 +146,69 @@ final class BankTransferGateway extends WC_Payment_Gateway
     /**
      * Resolve the effective secret key, preferring a detected Stripe plugin.
      */
+    /**
+     * A value in the settings always wins, so a site that never moved its
+     * credentials to the Secrets API does not touch it at all. An unreadable
+     * secret stays empty rather than falling back to anything: the gateway then
+     * has no key, and the settings screen says why.
+     */
+    public function get_option($key, $empty_value = null): mixed
+    {
+        $value = parent::get_option($key, $empty_value);
+
+        if ($value !== '' || ! in_array($key, Credentials::FIELDS, true)) {
+            return $value;
+        }
+
+        $secret = Credentials::read($key);
+
+        if (is_wp_error($secret)) {
+            $this->credentials_unreadable = true;
+
+            return '';
+        }
+
+        return $secret ?? '';
+    }
+
+    public function process_admin_options(): bool
+    {
+        $saved = parent::process_admin_options();
+
+        $this->move_credentials_to_secrets();
+
+        return $saved;
+    }
+
+    /**
+     * Happens on save and never on update: a credential only leaves the settings
+     * once the merchant is there to notice if WP_SECRETS_KEY turns out to be
+     * missing or wrong. Without a usable key the store fails and it stays put.
+     */
+    private function move_credentials_to_secrets(): void
+    {
+        foreach (Credentials::FIELDS as $field) {
+            $value = (string) ($this->settings[$field] ?? '');
+            $current = Credentials::read($field);
+
+            if ($value === '') {
+                // An unreadable secret renders as an empty field, so saving the
+                // form must not delete what a restored key could read again.
+                if (is_string($current)) {
+                    Credentials::delete($field);
+                }
+
+                continue;
+            }
+
+            if ($value === $current || Credentials::store($field, $value)) {
+                $this->settings[$field] = '';
+            }
+        }
+
+        update_option($this->get_option_key(), $this->settings);
+    }
+
     private function resolve_secret_key(): string
     {
         if (PluginIntegration::shouldUseExistingCredentials($this)) {
@@ -173,6 +240,13 @@ final class BankTransferGateway extends WC_Payment_Gateway
         $notice = PluginIntegration::getIntegrationNotice();
         if ($notice !== false) {
             echo wp_kses_post($notice);
+        }
+
+        if ($this->credentials_unreadable) {
+            printf(
+                '<div class="notice notice-error"><p>%s</p></div>',
+                esc_html__('A stored Stripe credential could not be read, so payments will fail. Check that WP_SECRETS_KEY is set correctly, or enter the credential again.', 'zirkel-iban-for-woocommerce')
+            );
         }
     }
 
