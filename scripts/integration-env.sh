@@ -108,6 +108,9 @@ BTPW_STRIPE_KEY="$STRIPE_KEY" wp eval '
     update_option("woocommerce_stripe_bank_transfer_settings", $s);
 ' --path="$WP_DIR" --quiet
 
+# A fresh WooCommerce defaults to USD, and eu_bank_transfer accepts EUR only.
+wp option update woocommerce_currency EUR --path="$WP_DIR" --quiet
+
 if [[ -z "$(wp post list --post_type=product --format=ids --path="$WP_DIR" 2>/dev/null)" ]]; then
     wp wc product create --name="Lastenrad Testartikel" --type=simple --regular_price=249 \
         --status=publish --user=admin --path="$WP_DIR" --porcelain --quiet >/dev/null
