@@ -433,9 +433,10 @@ if (! class_exists('WC_Order')) {
             return $this->currency;
         }
 
-        public function get_total(): float
+        /** Like WooCommerce, which returns the stored total as a numeric string. */
+        public function get_total(): string
         {
-            return $this->total;
+            return (string) $this->total;
         }
 
         public function get_billing_email(): string
