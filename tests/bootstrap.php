@@ -225,6 +225,12 @@ if (! function_exists('wc_price')) {
         return number_format($price, 2, '.', '').' '.((string) ($args['currency'] ?? 'EUR'));
     }
 }
+if (! function_exists('wp_strip_all_tags')) {
+    function wp_strip_all_tags(string $text): string
+    {
+        return trim(strip_tags($text));
+    }
+}
 if (! function_exists('wp_enqueue_script')) {
     function wp_enqueue_script(string $handle, string $src = '', array $deps = [], mixed $ver = false, mixed $args = false): void {}
 }

@@ -21,7 +21,7 @@ Built DACH-first: SEPA / EUR is the default, with a German (Sie and Du) interfac
 **Features**
 
 * Per-order virtual bank account details shown on the thank-you page and in order emails.
-* Automatic reconciliation via Stripe webhooks (paid, failed, cancelled, processing, partially funded).
+* Automatic reconciliation via Stripe webhooks (paid, failed, cancelled, processing, partially funded, overpaid).
 * **GiroCode (EPC-QR)** on the thank-you page — customers scan it with their banking app to pre-fill the transfer.
 * Full and partial **refunds** straight from the WooCommerce order screen.
 * Works in both the **block-based checkout** and the classic checkout.
@@ -54,7 +54,7 @@ Stripe [Terms of Service](https://stripe.com/legal) · Stripe [Privacy Policy](h
 1. Upload the plugin to `/wp-content/plugins/` and activate it.
 2. Go to WooCommerce → Settings → Payments → Bank Transfer and enable it.
 3. Enter your Stripe secret key (test and live), or let the plugin reuse keys from an existing Stripe plugin.
-4. In your Stripe Dashboard, add a webhook endpoint pointing to the URL shown in the gateway settings, and paste the signing secret into the Webhook Secret field.
+4. In your Stripe Dashboard, add a webhook endpoint pointing to the URL shown in the gateway settings, and paste the signing secret into the Webhook Secret field. Subscribe it to `payment_intent.succeeded`, `payment_intent.payment_failed`, `payment_intent.canceled`, `payment_intent.processing`, `payment_intent.requires_action`, `payment_intent.partially_funded` and `customer_cash_balance_transaction.created`.
 
 == Frequently Asked Questions ==
 

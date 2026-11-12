@@ -114,6 +114,7 @@ final class WebhookHandler
             'payment_intent.processing' => $this->handle_payment_processing($object),
             'payment_intent.requires_action' => $this->handle_requires_action($object),
             'payment_intent.partially_funded' => $this->handle_partially_funded($object),
+            'customer_cash_balance_transaction.created' => $this->handle_cash_balance_transaction($object),
             default => $this->log('Unhandled webhook event type: '.$type),
         };
     }
@@ -272,14 +273,20 @@ final class WebhookHandler
             return;
         }
 
-        $received = $paymentIntent['amount_received'] ?? 0;
-        $expected = $paymentIntent['amount'] ?? 0;
+        $expected = (int) ($paymentIntent['amount'] ?? 0);
+        // amount_received stays 0 until a customer_balance intent succeeds; the shortfall is in next_action.
+        $remaining = $paymentIntent['next_action']['display_bank_transfer_instructions']['amount_remaining'] ?? null;
+        $received = is_numeric($remaining)
+            ? max(0, $expected - (int) $remaining)
+            : (int) ($paymentIntent['amount_received'] ?? 0);
+        $currency = (string) ($paymentIntent['currency'] ?? 'eur');
 
         $order->add_order_note(sprintf(
-            /* translators: 1: Amount received, 2: Amount expected (both in the smallest currency unit). */
-            __('Partial bank transfer received: %1$s of %2$s (minor units). Awaiting the remaining amount.', 'zirkel-iban-for-woocommerce'),
-            (string) $received,
-            (string) $expected
+            /* translators: 1: Amount received, 2: Order amount, 3: Amount still outstanding. */
+            __('Partial bank transfer received: %1$s of %2$s. Still outstanding: %3$s.', 'zirkel-iban-for-woocommerce'),
+            $this->format_amount($received, $currency),
+            $this->format_amount($expected, $currency),
+            $this->format_amount($expected - $received, $currency)
         ));
 
         $order->update_meta_data('_stripe_payment_intent_status', 'partially_funded');
@@ -296,6 +303,59 @@ final class WebhookHandler
         do_action('btpw_payment_partially_funded', $order, $received, $expected);
 
         $this->log('Partially funded order #'.$order->get_id());
+    }
+
+    /**
+     * Notes an overpayment on the order it paid.
+     *
+     * Stripe applies only the order amount and keeps the rest as the customer's cash balance,
+     * which nothing in WooCommerce shows. The transaction that applies the money carries the
+     * balance left afterwards.
+     *
+     * @param  array<string, mixed>  $transaction
+     */
+    private function handle_cash_balance_transaction(array $transaction): void
+    {
+        $left = (int) ($transaction['ending_balance'] ?? 0);
+
+        if (($transaction['type'] ?? '') !== 'applied_to_payment' || $left <= 0) {
+            return;
+        }
+
+        $intent = $transaction['applied_to_payment']['payment_intent'] ?? '';
+        $intentId = is_array($intent) ? (string) ($intent['id'] ?? '') : (string) $intent;
+        $order = $intentId !== '' ? $this->get_order_from_payment_intent(['id' => $intentId]) : null;
+
+        if ($order === null || $order->get_payment_method() !== BankTransferGateway::GATEWAY_ID) {
+            return;
+        }
+
+        $order->add_order_note(sprintf(
+            /* translators: %s: Amount left on the customer's Stripe cash balance. */
+            __('The bank transfer exceeded the order amount. The customer\'s cash balance in Stripe now holds %s.', 'zirkel-iban-for-woocommerce'),
+            $this->format_amount($left, (string) ($transaction['currency'] ?? 'eur'))
+        ));
+        $order->update_meta_data('_btpw_cash_balance_left', (string) $left);
+        $order->save();
+
+        /**
+         * Fires when a bank transfer paid more than the order amount.
+         *
+         * @param  WC_Order  $order
+         * @param  int  $left  Customer cash balance left in Stripe, in minor units.
+         */
+        do_action('btpw_payment_overfunded', $order, $left);
+
+        $this->log('Overfunded order #'.$order->get_id());
+    }
+
+    private function format_amount(int $minor, string $currency): string
+    {
+        $amount = $minor / 100;
+
+        return function_exists('wc_price')
+            ? wp_strip_all_tags(wc_price($amount, ['currency' => strtoupper($currency)]))
+            : number_format($amount, 2).' '.strtoupper($currency);
     }
 
     /**
