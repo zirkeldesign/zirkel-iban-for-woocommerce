@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.5] - 2026-11-12
+
+### Added
+- The order view in My Account shows the transfer instructions while the order awaits the transfer (`woocommerce_view_order`).
+- After a partial payment the instructions show the order total, the amount received and what is still outstanding.
+
+### Changed
+- The instructions show Stripe's payment reference and ask for it instead of the order number, which Stripe does not reconcile against. Without a reference the previous notice stays.
+
 ## [1.1.4] - 2026-11-12
 
 ### Fixed
