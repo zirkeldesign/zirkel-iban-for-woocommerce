@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Zirkel Virtual IBAN for WooCommerce 1.0.0\n"
+"Project-Id-Version: Zirkel Virtual IBAN for WooCommerce 1.1.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/zirkel-iban-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-31T10:34:46+00:00\n"
+"POT-Creation-Date: 2026-11-12T15:03:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: zirkel-iban-for-woocommerce\n"
@@ -39,203 +39,199 @@ msgstr ""
 msgid "https://zirkel.design"
 msgstr ""
 
-#: zirkel-iban-for-woocommerce.php:64
-msgid "Zirkel Virtual IBAN for WooCommerce requires WooCommerce to be installed and activated."
-msgstr ""
-
-#: zirkel-iban-for-woocommerce.php:88
-msgid "Settings"
-msgstr ""
-
-#: src/Admin/CustomerBalanceDisplay.php:97
+#: src/Admin/CustomerBalanceDisplay.php:104
 msgid "Virtual bank account created successfully!"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:98
+#: src/Admin/CustomerBalanceDisplay.php:105
 msgid "Error: "
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:99
-#: src/Webhook/WebhookHandler.php:157
+#: src/Admin/CustomerBalanceDisplay.php:106
+#: src/Webhook/WebhookHandler.php:169
 msgid "Unknown error"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:100
+#: src/Admin/CustomerBalanceDisplay.php:107
 msgid "An error occurred. Please try again."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:152
+#: src/Admin/CustomerBalanceDisplay.php:159
 msgid "Stripe Customer Balance"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:159
+#: src/Admin/CustomerBalanceDisplay.php:166
 msgid "No Stripe customer ID found for this user."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:173
+#: src/Admin/CustomerBalanceDisplay.php:180
 msgid "Stripe Customer ID"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:181
+#: src/Admin/CustomerBalanceDisplay.php:188
 msgid "Default Currency"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:190
+#: src/Admin/CustomerBalanceDisplay.php:197
 msgid "Stripe Dashboard"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:191
+#: src/Admin/CustomerBalanceDisplay.php:198
 msgid "View in Stripe"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:199
+#: src/Admin/CustomerBalanceDisplay.php:206
 msgid "Error fetching customer data from Stripe: "
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:221
+#: src/Admin/CustomerBalanceDisplay.php:228
 msgid "Available funds from bank transfer payments."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:240
+#: src/Admin/CustomerBalanceDisplay.php:247
 msgid "Calculated from transaction history."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:249
+#: src/Admin/CustomerBalanceDisplay.php:256
 msgid "No funds received yet via bank transfers."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:258
+#: src/Admin/CustomerBalanceDisplay.php:265
 msgid "Cash Balance (Virtual Bank Account)"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:275
+#: src/Admin/CustomerBalanceDisplay.php:282
 msgid "Cash Balance Transactions"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:278
+#: src/Admin/CustomerBalanceDisplay.php:285
 msgid "No cash balance transactions yet."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:285
+#: src/Admin/CustomerBalanceDisplay.php:292
 msgid "Date"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:286
+#: src/Admin/CustomerBalanceDisplay.php:293
 msgid "Type"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:287
+#: src/Admin/CustomerBalanceDisplay.php:294
 msgid "Amount"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:288
+#: src/Admin/CustomerBalanceDisplay.php:295
 msgid "Status"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:289
+#: src/Admin/CustomerBalanceDisplay.php:296
 msgid "Details"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:304
+#: src/Admin/CustomerBalanceDisplay.php:311
 msgid "Applied to payment"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:306
+#: src/Admin/CustomerBalanceDisplay.php:313
 msgid "Funded"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:308
+#: src/Admin/CustomerBalanceDisplay.php:315
 msgid "Refunded from payment"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:322
+#: src/Admin/CustomerBalanceDisplay.php:329
 msgid "Virtual Bank Account Details"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:332
+#: src/Admin/CustomerBalanceDisplay.php:339
 msgid "These are unique bank account details for this customer to receive bank transfers."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:348
+#: src/Admin/CustomerBalanceDisplay.php:355
 msgid "No virtual bank account created yet."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:351
+#: src/Admin/CustomerBalanceDisplay.php:358
 msgid "Create Virtual Bank Account"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:354
+#: src/Admin/CustomerBalanceDisplay.php:361
 msgid "Generates unique bank account details for this customer to receive transfers."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:374
-#: src/Gateway/BankTransferGateway.php:801
+#: src/Admin/CustomerBalanceDisplay.php:381
+#: src/Gateway/BankTransferGateway.php:799
 msgid "Bank Account"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:384
+#: src/Admin/CustomerBalanceDisplay.php:391
 msgid "Supported Networks"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:407
-#: src/Admin/CustomerBalanceDisplay.php:419
-#: src/Admin/CustomerBalanceDisplay.php:430
+#: src/Admin/CustomerBalanceDisplay.php:414
+#: src/Admin/CustomerBalanceDisplay.php:426
+#: src/Admin/CustomerBalanceDisplay.php:437
 msgid "Account Number"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:408
+#: src/Admin/CustomerBalanceDisplay.php:415
 msgid "Routing Number"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:409
-#: src/Admin/CustomerBalanceDisplay.php:415
-#: src/Admin/CustomerBalanceDisplay.php:421
-#: src/Admin/CustomerBalanceDisplay.php:426
+#: src/Admin/CustomerBalanceDisplay.php:416
+#: src/Admin/CustomerBalanceDisplay.php:422
+#: src/Admin/CustomerBalanceDisplay.php:428
+#: src/Admin/CustomerBalanceDisplay.php:433
 msgid "Bank Name"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:410
-#: src/Admin/CustomerBalanceDisplay.php:416
-#: src/Admin/CustomerBalanceDisplay.php:422
-#: src/Admin/CustomerBalanceDisplay.php:427
-#: src/Admin/CustomerBalanceDisplay.php:433
+#: src/Admin/CustomerBalanceDisplay.php:417
+#: src/Admin/CustomerBalanceDisplay.php:423
+#: src/Admin/CustomerBalanceDisplay.php:429
+#: src/Admin/CustomerBalanceDisplay.php:434
+#: src/Admin/CustomerBalanceDisplay.php:440
 msgid "Account Holder Name"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:413
+#: src/Admin/CustomerBalanceDisplay.php:420
 msgid "IBAN"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:414
+#: src/Admin/CustomerBalanceDisplay.php:421
 msgid "BIC/SWIFT"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:420
+#: src/Admin/CustomerBalanceDisplay.php:427
 msgid "Sort Code"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:425
+#: src/Admin/CustomerBalanceDisplay.php:432
 msgid "CLABE"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:431
+#: src/Admin/CustomerBalanceDisplay.php:438
 msgid "Bank Code"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:432
+#: src/Admin/CustomerBalanceDisplay.php:439
 msgid "Branch Code"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:448
-msgid "Customer ID is required"
+#: src/Admin/CustomerBalanceDisplay.php:461
+msgid "This user has no Stripe customer yet."
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:452
+#: src/Admin/CustomerBalanceDisplay.php:465
 msgid "Stripe connection failed"
 msgstr ""
 
-#: src/Admin/CustomerBalanceDisplay.php:468
+#: src/Admin/CustomerBalanceDisplay.php:481
 msgid "Virtual bank account created successfully"
+msgstr ""
+
+#: src/Admin/CustomerBalanceDisplay.php:495
+msgid "Could not create the virtual bank account. See the WooCommerce logs for details."
 msgstr ""
 
 #: src/Email/AwaitingTransferEmail.php:31
@@ -258,316 +254,304 @@ msgstr ""
 msgid "Your order ships as soon as the transfer arrives. Bank transfers usually take one to three business days."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:82
+#: src/Gateway/BankTransferGateway.php:78
 msgid "Bank Transfer Payments"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:83
+#: src/Gateway/BankTransferGateway.php:79
 msgid "Accept bank transfer payments via Stripe. Customers receive individual bank account details for each order."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:186
+#: src/Gateway/BankTransferGateway.php:187
 msgid "Enable/Disable"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:187
+#: src/Gateway/BankTransferGateway.php:188
 msgid "Enable Bank Transfer Payments"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:193
+#: src/Gateway/BankTransferGateway.php:194
 msgid "Title"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:195
+#: src/Gateway/BankTransferGateway.php:196
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:196
+#: src/Gateway/BankTransferGateway.php:197
 #: src/Gateway/BlocksSupport.php:69
 msgid "Bank Transfer"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:200
+#: src/Gateway/BankTransferGateway.php:201
 msgid "Description"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:202
+#: src/Gateway/BankTransferGateway.php:203
 msgid "Payment method description that the customer will see on your checkout."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:203
+#: src/Gateway/BankTransferGateway.php:204
 msgid "Pay securely using bank transfer. You will receive unique bank account details after placing your order."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:207
+#: src/Gateway/BankTransferGateway.php:208
 msgid "Test mode"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:208
+#: src/Gateway/BankTransferGateway.php:209
 msgid "Enable Test Mode"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:210
+#: src/Gateway/BankTransferGateway.php:211
 msgid "Place the payment gateway in test mode using test API keys."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:215
+#: src/Gateway/BankTransferGateway.php:216
 msgid "Test Secret Key"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:217
-#: src/Gateway/BankTransferGateway.php:224
+#: src/Gateway/BankTransferGateway.php:218
+#: src/Gateway/BankTransferGateway.php:225
 msgid "Get your API keys from your Stripe account."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:222
+#: src/Gateway/BankTransferGateway.php:223
 msgid "Live Secret Key"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:229
+#: src/Gateway/BankTransferGateway.php:230
 msgid "Webhook Secret"
 msgstr ""
 
 #. translators: %s: Webhook URL
-#: src/Gateway/BankTransferGateway.php:233
+#: src/Gateway/BankTransferGateway.php:234
 #, php-format
 msgid "Enter your webhook signing secret from the Stripe Dashboard. Webhook URL: %s"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:240
+#: src/Gateway/BankTransferGateway.php:241
 msgid "Bank Transfer Type"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:242
+#: src/Gateway/BankTransferGateway.php:243
 msgid "Select the type of bank transfer to accept."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:246
-#: src/Gateway/BankTransferGateway.php:796
+#: src/Gateway/BankTransferGateway.php:247
+#: src/Gateway/BankTransferGateway.php:794
 msgid "EU Bank Account (SEPA)"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:247
-#: src/Gateway/BankTransferGateway.php:798
+#: src/Gateway/BankTransferGateway.php:248
+#: src/Gateway/BankTransferGateway.php:796
 msgid "UK Bank Account (Bacs)"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:248
-#: src/Gateway/BankTransferGateway.php:797
+#: src/Gateway/BankTransferGateway.php:249
+#: src/Gateway/BankTransferGateway.php:795
 msgid "US Bank Account (ACH)"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:249
-#: src/Gateway/BankTransferGateway.php:800
+#: src/Gateway/BankTransferGateway.php:250
+#: src/Gateway/BankTransferGateway.php:798
 msgid "Japanese Bank Account"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:250
-#: src/Gateway/BankTransferGateway.php:799
+#: src/Gateway/BankTransferGateway.php:251
+#: src/Gateway/BankTransferGateway.php:797
 msgid "Mexican Bank Account (SPEI)"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:254
+#: src/Gateway/BankTransferGateway.php:255
 msgid "Default Currency for Virtual Bank Accounts"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:256
+#: src/Gateway/BankTransferGateway.php:257
 msgid "Currency used when creating virtual bank account details for customers."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:260
+#: src/Gateway/BankTransferGateway.php:261
 msgid "US Dollar (USD)"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:261
+#: src/Gateway/BankTransferGateway.php:262
 msgid "Euro (EUR)"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:262
+#: src/Gateway/BankTransferGateway.php:263
 msgid "British Pound (GBP)"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:263
+#: src/Gateway/BankTransferGateway.php:264
 msgid "Japanese Yen (JPY)"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:264
+#: src/Gateway/BankTransferGateway.php:265
 msgid "Mexican Peso (MXN)"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:268
+#: src/Gateway/BankTransferGateway.php:269
 msgid "Awaiting-payment order status"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:270
+#: src/Gateway/BankTransferGateway.php:271
 msgid "Status to set on the order while waiting for the customer to complete the bank transfer."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:274
+#: src/Gateway/BankTransferGateway.php:275
 msgid "Awaiting Bank Transfer"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:275
+#: src/Gateway/BankTransferGateway.php:276
 msgid "On hold"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:276
+#: src/Gateway/BankTransferGateway.php:277
 msgid "Pending payment"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:280
+#: src/Gateway/BankTransferGateway.php:281
 msgid "Debug Mode"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:281
+#: src/Gateway/BankTransferGateway.php:282
 msgid "Enable logging"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:283
+#: src/Gateway/BankTransferGateway.php:284
 msgid "Log events to WooCommerce logs for debugging."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:288
-msgid "Subscriptions"
-msgstr ""
-
-#: src/Gateway/BankTransferGateway.php:289
-msgid "Allow bank transfer for subscriptions (manual renewals)"
-msgstr ""
-
-#: src/Gateway/BankTransferGateway.php:291
-msgid "Requires the WooCommerce Subscriptions extension. Bank transfers cannot be charged automatically, so each renewal issues a new virtual bank account that the customer pays manually."
-msgstr ""
-
-#: src/Gateway/BankTransferGateway.php:342
+#: src/Gateway/BankTransferGateway.php:335
 #: src/Gateway/BlocksSupport.php:71
 msgid "After placing your order, you will receive unique bank account details to complete your payment."
 msgstr ""
 
 #. translators: 1: Order number, 2: Site name
-#: src/Gateway/BankTransferGateway.php:398
+#: src/Gateway/BankTransferGateway.php:396
 #, php-format
 msgid "Order %1$s from %2$s"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:564
+#: src/Gateway/BankTransferGateway.php:562
 msgid "Awaiting bank transfer payment."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:579
+#: src/Gateway/BankTransferGateway.php:577
 msgid "Order could not be loaded. Please try again."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:585
+#: src/Gateway/BankTransferGateway.php:583
 msgid "Payment gateway configuration error. Please contact support."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:616
+#: src/Gateway/BankTransferGateway.php:614
 msgid "Payment failed. Please try again or contact us."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:621
+#: src/Gateway/BankTransferGateway.php:619
 msgid "An error occurred while processing your payment. Please try again."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:643
+#: src/Gateway/BankTransferGateway.php:641
 msgid "Order could not be loaded."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:647
+#: src/Gateway/BankTransferGateway.php:645
 msgid "Stripe is not configured."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:653
+#: src/Gateway/BankTransferGateway.php:651
 msgid "No Stripe payment found for this order."
 msgstr ""
 
 #. translators: 1: Refunded amount, 2: Stripe refund ID
-#: src/Gateway/BankTransferGateway.php:673
+#: src/Gateway/BankTransferGateway.php:671
 #, php-format
 msgid "Refunded %1$s via Stripe bank transfer. Refund ID: %2$s"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:674
+#: src/Gateway/BankTransferGateway.php:672
 msgid "full amount"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:718
-#: src/Gateway/BankTransferGateway.php:939
+#: src/Gateway/BankTransferGateway.php:716
+#: src/Gateway/BankTransferGateway.php:937
 msgid "Bank Transfer Instructions"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:719
-#: src/Gateway/BankTransferGateway.php:940
+#: src/Gateway/BankTransferGateway.php:717
+#: src/Gateway/BankTransferGateway.php:938
 msgid "Please transfer the funds to the following bank account:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:756
+#: src/Gateway/BankTransferGateway.php:754
 msgid "Amount:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:757
+#: src/Gateway/BankTransferGateway.php:755
 msgid "Order Number:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:760
+#: src/Gateway/BankTransferGateway.php:758
 msgid "View Full Instructions"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:764
-#: src/Gateway/BankTransferGateway.php:966
+#: src/Gateway/BankTransferGateway.php:762
+#: src/Gateway/BankTransferGateway.php:964
 msgid "Important: Please include your order number as the payment reference."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:786
+#: src/Gateway/BankTransferGateway.php:784
 msgid "Your bank checks the recipient name against the IBAN before releasing the transfer. Please enter the account holder name exactly as shown above. The payment is handled by our payment provider, so this name can differ from our shop name - that is normal."
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:826
-#: src/Gateway/BankTransferGateway.php:836
+#: src/Gateway/BankTransferGateway.php:824
+#: src/Gateway/BankTransferGateway.php:834
 msgid "Account Holder Name:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:827
+#: src/Gateway/BankTransferGateway.php:825
 msgid "IBAN:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:828
+#: src/Gateway/BankTransferGateway.php:826
 msgid "BIC:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:831
-#: src/Gateway/BankTransferGateway.php:837
-#: src/Gateway/BankTransferGateway.php:845
+#: src/Gateway/BankTransferGateway.php:829
+#: src/Gateway/BankTransferGateway.php:835
+#: src/Gateway/BankTransferGateway.php:843
 msgid "Account Number:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:832
+#: src/Gateway/BankTransferGateway.php:830
 msgid "Routing Number:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:833
-#: src/Gateway/BankTransferGateway.php:842
+#: src/Gateway/BankTransferGateway.php:831
+#: src/Gateway/BankTransferGateway.php:840
 msgid "Bank Name:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:838
+#: src/Gateway/BankTransferGateway.php:836
 msgid "Sort Code:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:841
+#: src/Gateway/BankTransferGateway.php:839
 msgid "CLABE:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:846
+#: src/Gateway/BankTransferGateway.php:844
 msgid "Bank Code:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:847
+#: src/Gateway/BankTransferGateway.php:845
 msgid "Branch Code:"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:893
+#: src/Gateway/BankTransferGateway.php:891
 msgid "Scan this GiroCode with your banking app to pre-fill the transfer."
 msgstr ""
 
@@ -606,62 +590,52 @@ msgstr ""
 msgid "Detected %s plugin. Using Stripe credentials from that plugin."
 msgstr ""
 
-#. translators: %s: Error message.
-#: src/Subscriptions/SubscriptionSupport.php:91
-#, php-format
-msgid "Could not create bank transfer for subscription renewal: %s"
-msgstr ""
-
-#. translators: %s: Link to the Pro upgrade page.
-#: src/Support/Features.php:115
-#, php-format
-msgid "Available in %s."
-msgstr ""
-
-#: src/Support/Features.php:117
-msgid "Pro"
-msgstr ""
-
 #. translators: %s: Payment Intent ID
-#: src/Webhook/WebhookHandler.php:132
+#: src/Webhook/WebhookHandler.php:144
 #, php-format
 msgid "Stripe bank transfer payment completed. Payment Intent ID: %s"
 msgstr ""
 
-#: src/Webhook/WebhookHandler.php:154
+#: src/Webhook/WebhookHandler.php:166
 msgid "Bank transfer payment failed."
 msgstr ""
 
 #. translators: 1: Failure reason, 2: Payment Intent ID
-#: src/Webhook/WebhookHandler.php:161
+#: src/Webhook/WebhookHandler.php:173
 #, php-format
 msgid "Stripe bank transfer payment failed. Reason: %1$s. Payment Intent ID: %2$s"
 msgstr ""
 
-#: src/Webhook/WebhookHandler.php:184
+#: src/Webhook/WebhookHandler.php:196
 msgid "Bank transfer payment was cancelled."
 msgstr ""
 
 #. translators: %s: Payment Intent ID
-#: src/Webhook/WebhookHandler.php:187
+#: src/Webhook/WebhookHandler.php:199
 #, php-format
 msgid "Stripe bank transfer payment cancelled. Payment Intent ID: %s"
 msgstr ""
 
 #. translators: %s: Payment Intent ID
-#: src/Webhook/WebhookHandler.php:211
+#: src/Webhook/WebhookHandler.php:223
 #, php-format
 msgid "Bank transfer payment is being processed by Stripe. Payment Intent ID: %s"
 msgstr ""
 
-#: src/Webhook/WebhookHandler.php:238
+#: src/Webhook/WebhookHandler.php:250
 msgid "Bank transfer instructions have been updated."
 msgstr ""
 
-#. translators: 1: Amount received, 2: Amount expected (both in the smallest currency unit).
-#: src/Webhook/WebhookHandler.php:269
+#. translators: 1: Amount received, 2: Order amount, 3: Amount still outstanding.
+#: src/Webhook/WebhookHandler.php:286
 #, php-format
-msgid "Partial bank transfer received: %1$s of %2$s (minor units). Awaiting the remaining amount."
+msgid "Partial bank transfer received: %1$s of %2$s. Still outstanding: %3$s."
+msgstr ""
+
+#. translators: %s: Amount left on the customer's Stripe cash balance.
+#: src/Webhook/WebhookHandler.php:335
+#, php-format
+msgid "The bank transfer exceeded the order amount. The customer's cash balance in Stripe now holds %s."
 msgstr ""
 
 #. translators: %s: Customer first name.
@@ -678,4 +652,12 @@ msgstr ""
 
 #: templates/emails/plain/customer-awaiting-transfer.php:30
 msgid "Payment reference:"
+msgstr ""
+
+#: zirkel-iban-for-woocommerce.php:64
+msgid "Zirkel Virtual IBAN for WooCommerce requires WooCommerce to be installed and activated."
+msgstr ""
+
+#: zirkel-iban-for-woocommerce.php:88
+msgid "Settings"
 msgstr ""

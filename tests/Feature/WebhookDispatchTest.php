@@ -149,7 +149,27 @@ describe('WebhookHandler::dispatch status mapping', function (): void {
 
         expect($order->get_meta('_stripe_payment_intent_status'))->toBe('partially_funded')
             ->and($order->get_meta('_btpw_amount_received'))->toBe('4000')
-            ->and(implode(' ', $order->notes))->toContain('4000');
+            ->and(implode(' ', $order->notes))->toContain('40.00 EUR of 100.00 EUR')
+            ->and(implode(' ', $order->notes))->toContain('outstanding: 60.00 EUR');
+    });
+
+    it('takes the received amount from the remaining amount Stripe reports', function (): void {
+        $order = new WC_Order(id: 8);
+        btpw_register_order($order);
+
+        // Real shape: amount_received stays 0 until the intent succeeds.
+        (new WebhookHandler)->dispatch(btpw_event('payment_intent.partially_funded', [
+            'id' => 'pi_partial_real',
+            'metadata' => ['order_id' => 8],
+            'amount' => 8900,
+            'amount_received' => 0,
+            'currency' => 'eur',
+            'next_action' => ['display_bank_transfer_instructions' => ['amount_remaining' => 3900]],
+        ]));
+
+        expect($order->get_meta('_btpw_amount_received'))->toBe('5000')
+            ->and(implode(' ', $order->notes))->toContain('50.00 EUR of 89.00 EUR')
+            ->and(implode(' ', $order->notes))->toContain('outstanding: 39.00 EUR');
     });
 
     it('ignores unknown event types without error', function (): void {
@@ -180,4 +200,53 @@ describe('WebhookHandler::dispatch other gateways', function (): void {
         'payment_intent.requires_action',
         'payment_intent.partially_funded',
     ]);
+});
+
+describe('WebhookHandler::dispatch overpayment', function (): void {
+    function btpw_cash_transaction(string $type, int $endingBalance, string $intent = 'pi_over'): array
+    {
+        return btpw_event('customer_cash_balance_transaction.created', [
+            'id' => 'ccsbtxn_1',
+            'type' => $type,
+            'currency' => 'eur',
+            'ending_balance' => $endingBalance,
+            'applied_to_payment' => ['payment_intent' => $intent],
+        ]);
+    }
+
+    it('notes the cash balance an overpayment leaves behind', function (): void {
+        $order = new WC_Order(id: 400);
+        $order->update_meta_data('_stripe_payment_intent_id', 'pi_over');
+        btpw_register_order($order);
+
+        (new WebhookHandler)->dispatch(btpw_cash_transaction('applied_to_payment', 3100));
+
+        expect(implode(' ', $order->notes))->toContain('31.00 EUR')
+            ->and($order->get_meta('_btpw_cash_balance_left'))->toBe('3100')
+            ->and($order->saved)->toBeTrue();
+    });
+
+    it('stays quiet when nothing is left or the money was not applied', function (string $type, int $left): void {
+        $order = new WC_Order(id: 401);
+        $order->update_meta_data('_stripe_payment_intent_id', 'pi_over');
+        btpw_register_order($order);
+
+        (new WebhookHandler)->dispatch(btpw_cash_transaction($type, $left));
+
+        expect($order->notes)->toBe([])
+            ->and($order->saved)->toBeFalse();
+    })->with([
+        'exact payment' => ['applied_to_payment', 0],
+        'funding only' => ['funded', 3100],
+    ]);
+
+    it('leaves orders of other gateways untouched', function (): void {
+        $order = new WC_Order(id: 402, paymentMethod: 'stripe_cc');
+        $order->update_meta_data('_stripe_payment_intent_id', 'pi_over');
+        btpw_register_order($order);
+
+        (new WebhookHandler)->dispatch(btpw_cash_transaction('applied_to_payment', 3100));
+
+        expect($order->notes)->toBe([]);
+    });
 });
