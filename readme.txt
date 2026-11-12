@@ -4,7 +4,7 @@ Tags: bank transfer, vorkasse, banküberweisung, sepa, iban
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.3
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,9 @@ Since 9 October 2025 every SEPA transfer in the EU/EEA goes through Verification
 Bank transfers cannot be charged automatically, so subscription renewals are always manual: each renewal issues a fresh virtual bank account for the customer to pay. This is available as an optional add-on feature.
 
 == Changelog ==
+
+= 1.1.6 =
+* Fixed: The bank transfer instructions could not be shown on the order confirmation page, in My Account and in the email since 1.1.5.
 
 = 1.1.5 =
 * Added: Customers see the bank details on their order in My Account while the transfer is outstanding, and after a partial payment how much is still open.
