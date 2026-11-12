@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.6] - 2026-11-12
+
+### Fixed
+- TypeError when rendering the transfer instructions: `WC_Order::get_total()` returns a string and the amount helper from 1.1.5 required a float. Affected the thank-you page, the My Account order view and the HTML email.
+
 ## [1.1.5] - 2026-11-12
 
 ### Added
