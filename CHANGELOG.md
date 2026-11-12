@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.3] - 2026-11-12
+
+### Fixed
+- The webhook handler only acts on orders paid by bank transfer. It receives every PaymentIntent event of the Stripe account, and card or SEPA intents of other gateways carry the same `order_id` metadata, so a canceled, failed or succeeded payment of another gateway changed its order status.
+
 ## [1.1.2] - 2026-10-29
 
 ### Security
