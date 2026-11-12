@@ -289,3 +289,76 @@ describe('GiroCode beneficiary', function (): void {
             ->and($html)->not->toContain('Test Shop');
     });
 });
+
+describe('Transfer details on the My Account order', function (): void {
+    function btpw_test_view_order_html(WC_Order $order): string
+    {
+        $order->update_meta_data('_stripe_bank_transfer_details', (string) wp_json_encode([
+            'financial_addresses' => [['type' => 'iban', 'iban' => ['iban' => 'DE89370400440532013000', 'bic' => 'COBADEFFXXX', 'account_holder_name' => 'Stripe Payments Europe, Limited']]],
+        ]));
+        $GLOBALS['btpw_test_orders'][$order->get_id()] = $order;
+
+        ob_start();
+        (new BankTransferGateway)->view_order_instructions($order->get_id());
+
+        return (string) ob_get_clean();
+    }
+
+    it('shows the details while the transfer is outstanding', function (): void {
+        $order = new WC_Order(id: 4801, total: 89.0);
+        $order->status = 'awaiting-transfer';
+
+        $html = btpw_test_view_order_html($order);
+
+        expect($html)->toContain('btpw-bank-transfer-details')
+            ->and($html)->toContain('DE89370400440532013000')
+            ->and($html)->not->toContain('Already received');
+    });
+
+    it('shows total, received and outstanding after a partial payment', function (): void {
+        $order = new WC_Order(id: 4802, total: 89.0);
+        $order->status = 'awaiting-transfer';
+        $order->update_meta_data('_btpw_amount_received', '5000');
+
+        $html = btpw_test_view_order_html($order);
+
+        expect($html)->toContain('89.00 EUR')
+            ->and($html)->toContain('Already received')
+            ->and($html)->toContain('50.00 EUR')
+            ->and($html)->toContain('39.00 EUR');
+    });
+
+    it('shows nothing once paid or for other gateways', function (string $status, string $method): void {
+        $order = new WC_Order(id: 4803, total: 89.0, paymentMethod: $method);
+        $order->status = $status;
+
+        expect(btpw_test_view_order_html($order))->toBe('');
+    })->with([
+        'paid' => ['processing', 'stripe_bank_transfer'],
+        'other gateway' => ['awaiting-transfer', 'stripe_cc'],
+    ]);
+});
+
+describe('Payment reference', function (): void {
+    it('shows the Stripe reference and asks for it instead of the order number', function (): void {
+        $order = new WC_Order(id: 4901, total: 89.0);
+        $order->update_meta_data('_stripe_bank_transfer_details', (string) wp_json_encode([
+            'reference' => 'K479RDBCZ3QA',
+            'financial_addresses' => [['type' => 'iban', 'iban' => ['iban' => 'DE89370400440532013000', 'bic' => 'COBADEFFXXX', 'account_holder_name' => 'Stripe Payments Europe, Limited']]],
+        ]));
+        $GLOBALS['btpw_test_orders'][4901] = $order;
+
+        ob_start();
+        (new BankTransferGateway)->thankyou_page(4901);
+        $html = (string) ob_get_clean();
+
+        expect($html)->toContain('K479RDBCZ3QA')
+            ->and($html)->toContain('payment reference exactly as shown')
+            ->and($html)->not->toContain('order number as the payment reference');
+    });
+
+    it('keeps asking for the order number when Stripe sent no reference', function (): void {
+        expect(BankTransferGateway::paymentReference([]))->toBe('')
+            ->and(BankTransferGateway::referenceNotice([]))->toContain('order number as the payment reference');
+    });
+});

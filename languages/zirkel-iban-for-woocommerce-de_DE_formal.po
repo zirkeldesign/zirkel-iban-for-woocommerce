@@ -153,7 +153,7 @@ msgid "Generates unique bank account details for this customer to receive transf
 msgstr "Erzeugt eindeutige Bankverbindungsdaten, über die dieser Kunde Überweisungen empfangen kann."
 
 #: src/Admin/CustomerBalanceDisplay.php:381
-#: src/Gateway/BankTransferGateway.php:799
+#: src/Gateway/BankTransferGateway.php:853
 msgid "Bank Account"
 msgstr "Bankkonto"
 
@@ -226,228 +226,227 @@ msgstr "Zahlungen per Banküberweisung"
 msgid "Accept bank transfer payments via Stripe. Customers receive individual bank account details for each order."
 msgstr "Akzeptiert Zahlungen per Banküberweisung über Stripe. Kunden erhalten für jede Bestellung individuelle Bankverbindungsdaten."
 
-#: src/Gateway/BankTransferGateway.php:187
+#: src/Gateway/BankTransferGateway.php:188
 msgid "Enable/Disable"
 msgstr "Aktivieren/Deaktivieren"
 
-#: src/Gateway/BankTransferGateway.php:188
+#: src/Gateway/BankTransferGateway.php:189
 msgid "Enable Bank Transfer Payments"
 msgstr "Zahlungen per Banküberweisung aktivieren"
 
-#: src/Gateway/BankTransferGateway.php:194
+#: src/Gateway/BankTransferGateway.php:195
 msgid "Title"
 msgstr "Titel"
 
-#: src/Gateway/BankTransferGateway.php:196
+#: src/Gateway/BankTransferGateway.php:197
 msgid "This controls the title which the user sees during checkout."
 msgstr "Legt den Titel fest, den der Nutzer während des Bezahlvorgangs sieht."
 
-#: src/Gateway/BankTransferGateway.php:197
+#: src/Gateway/BankTransferGateway.php:198
 #: src/Gateway/BlocksSupport.php:69
 msgid "Bank Transfer"
 msgstr "Banküberweisung"
 
-#: src/Gateway/BankTransferGateway.php:201
+#: src/Gateway/BankTransferGateway.php:202
 msgid "Description"
 msgstr "Beschreibung"
 
-#: src/Gateway/BankTransferGateway.php:203
+#: src/Gateway/BankTransferGateway.php:204
 msgid "Payment method description that the customer will see on your checkout."
 msgstr "Beschreibung der Zahlungsart, die der Kunde beim Bezahlvorgang sieht."
 
-#: src/Gateway/BankTransferGateway.php:204
+#: src/Gateway/BankTransferGateway.php:205
 msgid "Pay securely using bank transfer. You will receive unique bank account details after placing your order."
 msgstr "Zahlen Sie sicher per Banküberweisung. Nach dem Aufgeben Ihrer Bestellung erhalten Sie eindeutige Bankverbindungsdaten."
 
-#: src/Gateway/BankTransferGateway.php:208
+#: src/Gateway/BankTransferGateway.php:209
 msgid "Test mode"
 msgstr "Testmodus"
 
-#: src/Gateway/BankTransferGateway.php:209
+#: src/Gateway/BankTransferGateway.php:210
 msgid "Enable Test Mode"
 msgstr "Testmodus aktivieren"
 
-#: src/Gateway/BankTransferGateway.php:211
+#: src/Gateway/BankTransferGateway.php:212
 msgid "Place the payment gateway in test mode using test API keys."
 msgstr "Versetzt das Zahlungs-Gateway mit Test-API-Schlüsseln in den Testmodus."
 
-#: src/Gateway/BankTransferGateway.php:216
+#: src/Gateway/BankTransferGateway.php:217
 msgid "Test Secret Key"
 msgstr "Geheimer Test-Schlüssel"
 
-#: src/Gateway/BankTransferGateway.php:218
-#: src/Gateway/BankTransferGateway.php:225
+#: src/Gateway/BankTransferGateway.php:219
+#: src/Gateway/BankTransferGateway.php:226
 msgid "Get your API keys from your Stripe account."
 msgstr "Holen Sie sich Ihre API-Schlüssel aus Ihrem Stripe-Konto."
 
-#: src/Gateway/BankTransferGateway.php:223
+#: src/Gateway/BankTransferGateway.php:224
 msgid "Live Secret Key"
 msgstr "Geheimer Live-Schlüssel"
 
-#: src/Gateway/BankTransferGateway.php:230
+#: src/Gateway/BankTransferGateway.php:231
 msgid "Webhook Secret"
 msgstr "Webhook-Secret"
 
 #. translators: %s: Webhook URL
-#: src/Gateway/BankTransferGateway.php:234
+#: src/Gateway/BankTransferGateway.php:235
 #, php-format
 msgid "Enter your webhook signing secret from the Stripe Dashboard. Webhook URL: %s"
 msgstr "Geben Sie Ihr Webhook-Signing-Secret aus dem Stripe-Dashboard ein. Webhook-URL: %s"
 
-#: src/Gateway/BankTransferGateway.php:241
+#: src/Gateway/BankTransferGateway.php:242
 msgid "Bank Transfer Type"
 msgstr "Art der Banküberweisung"
 
-#: src/Gateway/BankTransferGateway.php:243
+#: src/Gateway/BankTransferGateway.php:244
 msgid "Select the type of bank transfer to accept."
 msgstr "Wählen Sie die Art der Banküberweisung, die akzeptiert werden soll."
 
-#: src/Gateway/BankTransferGateway.php:247
-#: src/Gateway/BankTransferGateway.php:794
+#: src/Gateway/BankTransferGateway.php:248
+#: src/Gateway/BankTransferGateway.php:848
 msgid "EU Bank Account (SEPA)"
 msgstr "EU-Bankkonto (SEPA)"
 
-#: src/Gateway/BankTransferGateway.php:248
-#: src/Gateway/BankTransferGateway.php:796
+#: src/Gateway/BankTransferGateway.php:249
+#: src/Gateway/BankTransferGateway.php:850
 msgid "UK Bank Account (Bacs)"
 msgstr "UK-Bankkonto (Bacs)"
 
-#: src/Gateway/BankTransferGateway.php:249
-#: src/Gateway/BankTransferGateway.php:795
+#: src/Gateway/BankTransferGateway.php:250
+#: src/Gateway/BankTransferGateway.php:849
 msgid "US Bank Account (ACH)"
 msgstr "US-Bankkonto (ACH)"
 
-#: src/Gateway/BankTransferGateway.php:250
-#: src/Gateway/BankTransferGateway.php:798
+#: src/Gateway/BankTransferGateway.php:251
+#: src/Gateway/BankTransferGateway.php:852
 msgid "Japanese Bank Account"
 msgstr "Japanisches Bankkonto"
 
-#: src/Gateway/BankTransferGateway.php:251
-#: src/Gateway/BankTransferGateway.php:797
+#: src/Gateway/BankTransferGateway.php:252
+#: src/Gateway/BankTransferGateway.php:851
 msgid "Mexican Bank Account (SPEI)"
 msgstr "Mexikanisches Bankkonto (SPEI)"
 
-#: src/Gateway/BankTransferGateway.php:255
+#: src/Gateway/BankTransferGateway.php:256
 msgid "Default Currency for Virtual Bank Accounts"
 msgstr "Standardwährung für virtuelle Bankkonten"
 
-#: src/Gateway/BankTransferGateway.php:257
+#: src/Gateway/BankTransferGateway.php:258
 msgid "Currency used when creating virtual bank account details for customers."
 msgstr "Währung, die beim Erstellen virtueller Bankverbindungsdaten für Kunden verwendet wird."
 
-#: src/Gateway/BankTransferGateway.php:261
+#: src/Gateway/BankTransferGateway.php:262
 msgid "US Dollar (USD)"
 msgstr "US-Dollar (USD)"
 
-#: src/Gateway/BankTransferGateway.php:262
+#: src/Gateway/BankTransferGateway.php:263
 msgid "Euro (EUR)"
 msgstr "Euro (EUR)"
 
-#: src/Gateway/BankTransferGateway.php:263
+#: src/Gateway/BankTransferGateway.php:264
 msgid "British Pound (GBP)"
 msgstr "Britisches Pfund (GBP)"
 
-#: src/Gateway/BankTransferGateway.php:264
+#: src/Gateway/BankTransferGateway.php:265
 msgid "Japanese Yen (JPY)"
 msgstr "Japanischer Yen (JPY)"
 
-#: src/Gateway/BankTransferGateway.php:265
+#: src/Gateway/BankTransferGateway.php:266
 msgid "Mexican Peso (MXN)"
 msgstr "Mexikanischer Peso (MXN)"
 
-#: src/Gateway/BankTransferGateway.php:281
+#: src/Gateway/BankTransferGateway.php:282
 msgid "Debug Mode"
 msgstr "Debug-Modus"
 
-#: src/Gateway/BankTransferGateway.php:282
+#: src/Gateway/BankTransferGateway.php:283
 msgid "Enable logging"
 msgstr "Protokollierung aktivieren"
 
-#: src/Gateway/BankTransferGateway.php:284
+#: src/Gateway/BankTransferGateway.php:285
 msgid "Log events to WooCommerce logs for debugging."
 msgstr "Protokolliert Ereignisse zur Fehlersuche in den WooCommerce-Logs."
 
-#: src/Gateway/BankTransferGateway.php:335
+#: src/Gateway/BankTransferGateway.php:336
 #: src/Gateway/BlocksSupport.php:71
 msgid "After placing your order, you will receive unique bank account details to complete your payment."
 msgstr "Nachdem Sie Ihre Bestellung aufgegeben haben, erhalten Sie eindeutige Bankverbindungsdaten, um Ihre Zahlung abzuschließen."
 
 #. translators: 1: Order number, 2: Site name
-#: src/Gateway/BankTransferGateway.php:396
+#: src/Gateway/BankTransferGateway.php:397
 #, php-format
 msgid "Order %1$s from %2$s"
 msgstr "Bestellung %1$s von %2$s"
 
-#: src/Gateway/BankTransferGateway.php:577
+#: src/Gateway/BankTransferGateway.php:578
 msgid "Order could not be loaded. Please try again."
 msgstr "Bestellung konnte nicht geladen werden. Bitte versuchen Sie es erneut."
 
-#: src/Gateway/BankTransferGateway.php:583
+#: src/Gateway/BankTransferGateway.php:584
 msgid "Payment gateway configuration error. Please contact support."
 msgstr "Konfigurationsfehler des Zahlungs-Gateways. Bitte kontaktieren Sie den Support."
 
-#: src/Gateway/BankTransferGateway.php:562
+#: src/Gateway/BankTransferGateway.php:563
 msgid "Awaiting bank transfer payment."
 msgstr "Warten auf Zahlung per Banküberweisung."
 
-#: src/Gateway/BankTransferGateway.php:614
+#: src/Gateway/BankTransferGateway.php:615
 msgid "Payment failed. Please try again or contact us."
 msgstr "Zahlung fehlgeschlagen. Bitte versuchen Sie es erneut oder kontaktieren Sie uns."
 
-#: src/Gateway/BankTransferGateway.php:619
+#: src/Gateway/BankTransferGateway.php:620
 msgid "An error occurred while processing your payment. Please try again."
 msgstr "Bei der Verarbeitung Ihrer Zahlung ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
 
-#: src/Gateway/BankTransferGateway.php:716
-#: src/Gateway/BankTransferGateway.php:937
+#: src/Gateway/BankTransferGateway.php:734
+#: src/Gateway/BankTransferGateway.php:991
 msgid "Bank Transfer Instructions"
 msgstr "Anweisungen zur Banküberweisung"
 
-#: src/Gateway/BankTransferGateway.php:717
-#: src/Gateway/BankTransferGateway.php:938
+#: src/Gateway/BankTransferGateway.php:735
+#: src/Gateway/BankTransferGateway.php:992
 msgid "Please transfer the funds to the following bank account:"
 msgstr "Bitte überweisen Sie den Betrag auf das folgende Bankkonto:"
 
-#: src/Gateway/BankTransferGateway.php:829
-#: src/Gateway/BankTransferGateway.php:835
-#: src/Gateway/BankTransferGateway.php:843
+#: src/Gateway/BankTransferGateway.php:883
+#: src/Gateway/BankTransferGateway.php:889
+#: src/Gateway/BankTransferGateway.php:897
 msgid "Account Number:"
 msgstr "Kontonummer:"
 
-#: src/Gateway/BankTransferGateway.php:830
+#: src/Gateway/BankTransferGateway.php:884
 msgid "Routing Number:"
 msgstr "Routing-Nummer:"
 
-#: src/Gateway/BankTransferGateway.php:825
+#: src/Gateway/BankTransferGateway.php:879
 msgid "IBAN:"
 msgstr "IBAN:"
 
-#: src/Gateway/BankTransferGateway.php:826
+#: src/Gateway/BankTransferGateway.php:880
 msgid "BIC:"
 msgstr "BIC:"
 
-#: src/Gateway/BankTransferGateway.php:836
+#: src/Gateway/BankTransferGateway.php:890
 msgid "Sort Code:"
 msgstr "Sort Code:"
 
-#: src/Gateway/BankTransferGateway.php:839
+#: src/Gateway/BankTransferGateway.php:893
 msgid "CLABE:"
 msgstr "CLABE:"
 
-#: src/Gateway/BankTransferGateway.php:754
+#: src/Gateway/BankTransferGateway.php:780
 msgid "Amount:"
 msgstr "Betrag:"
 
-#: src/Gateway/BankTransferGateway.php:755
+#: src/Gateway/BankTransferGateway.php:782
 msgid "Order Number:"
 msgstr "Bestellnummer:"
 
-#: src/Gateway/BankTransferGateway.php:758
+#: src/Gateway/BankTransferGateway.php:791
 msgid "View Full Instructions"
 msgstr "Vollständige Anweisungen ansehen"
 
-#: src/Gateway/BankTransferGateway.php:762
-#: src/Gateway/BankTransferGateway.php:964
+#: src/Gateway/BankTransferGateway.php:822
 msgid "Important: Please include your order number as the payment reference."
 msgstr "Wichtig: Bitte geben Sie Ihre Bestellnummer als Verwendungszweck an."
 
@@ -537,67 +536,67 @@ msgstr ""
 msgid "https://zirkel.design"
 msgstr ""
 
-#: src/Gateway/BankTransferGateway.php:269
+#: src/Gateway/BankTransferGateway.php:270
 msgid "Awaiting-payment order status"
 msgstr "Bestellstatus bei ausstehender Zahlung"
 
-#: src/Gateway/BankTransferGateway.php:271
+#: src/Gateway/BankTransferGateway.php:272
 msgid "Status to set on the order while waiting for the customer to complete the bank transfer."
 msgstr "Status, der für die Bestellung gesetzt wird, während auf die Banküberweisung des Kunden gewartet wird."
 
-#: src/Gateway/BankTransferGateway.php:275
+#: src/Gateway/BankTransferGateway.php:276
 msgid "Awaiting Bank Transfer"
 msgstr "Warten auf Banküberweisung"
 
-#: src/Gateway/BankTransferGateway.php:276
+#: src/Gateway/BankTransferGateway.php:277
 msgid "On hold"
 msgstr "In Wartestellung"
 
-#: src/Gateway/BankTransferGateway.php:277
+#: src/Gateway/BankTransferGateway.php:278
 msgid "Pending payment"
 msgstr "Zahlung ausstehend"
 
-#: src/Gateway/BankTransferGateway.php:891
+#: src/Gateway/BankTransferGateway.php:945
 msgid "Scan this GiroCode with your banking app to pre-fill the transfer."
 msgstr "Scannen Sie diesen GiroCode mit Ihrer Banking-App, um die Überweisung vorauszufüllen."
 
-#: src/Gateway/BankTransferGateway.php:641
+#: src/Gateway/BankTransferGateway.php:642
 msgid "Order could not be loaded."
 msgstr "Bestellung konnte nicht geladen werden."
 
-#: src/Gateway/BankTransferGateway.php:645
+#: src/Gateway/BankTransferGateway.php:646
 msgid "Stripe is not configured."
 msgstr "Stripe ist nicht konfiguriert."
 
-#: src/Gateway/BankTransferGateway.php:651
+#: src/Gateway/BankTransferGateway.php:652
 msgid "No Stripe payment found for this order."
 msgstr "Für diese Bestellung wurde keine Stripe-Zahlung gefunden."
 
 #. translators: 1: Refunded amount, 2: Stripe refund ID
-#: src/Gateway/BankTransferGateway.php:671
+#: src/Gateway/BankTransferGateway.php:672
 #, php-format
 msgid "Refunded %1$s via Stripe bank transfer. Refund ID: %2$s"
 msgstr "%1$s per Stripe-Banküberweisung erstattet. Erstattungs-ID: %2$s"
 
-#: src/Gateway/BankTransferGateway.php:672
+#: src/Gateway/BankTransferGateway.php:673
 msgid "full amount"
 msgstr "Gesamtbetrag"
 
-#: src/Gateway/BankTransferGateway.php:824
-#: src/Gateway/BankTransferGateway.php:834
+#: src/Gateway/BankTransferGateway.php:878
+#: src/Gateway/BankTransferGateway.php:888
 msgid "Account Holder Name:"
 msgstr "Name des Kontoinhabers:"
 
-#: src/Gateway/BankTransferGateway.php:831
-#: src/Gateway/BankTransferGateway.php:840
+#: src/Gateway/BankTransferGateway.php:885
+#: src/Gateway/BankTransferGateway.php:894
 msgid "Bank Name:"
 msgstr "Name der Bank:"
 
-#: src/Gateway/BankTransferGateway.php:844
+#: src/Gateway/BankTransferGateway.php:898
 msgid "Bank Code:"
 msgstr "Bankleitzahl:"
 
-#: src/Gateway/BankTransferGateway.php:845
+#: src/Gateway/BankTransferGateway.php:899
 msgid "Branch Code:"
 msgstr "Filialnummer:"
 
@@ -621,7 +620,7 @@ msgstr "Bitte überweisen Sie den offenen Betrag"
 msgid "Your order ships as soon as the transfer arrives. Bank transfers usually take one to three business days."
 msgstr "Ihre Bestellung wird versendet, sobald die Überweisung eingegangen ist. Banküberweisungen dauern in der Regel ein bis drei Werktage."
 
-#: src/Gateway/BankTransferGateway.php:784
+#: src/Gateway/BankTransferGateway.php:838
 msgid "Your bank checks the recipient name against the IBAN before releasing the transfer. Please enter the account holder name exactly as shown above. The payment is handled by our payment provider, so this name can differ from our shop name - that is normal."
 msgstr "Ihre Bank prüft den Empfängernamen gegen die IBAN, bevor die Überweisung ausgeführt wird. Bitte übernehmen Sie den Kontoinhaber genau so, wie er oben steht. Die Zahlung wickelt unser Zahlungsdienstleister ab, deshalb kann dieser Name von unserem Shop-Namen abweichen - das ist normal."
 
@@ -637,6 +636,8 @@ msgstr "Guten Tag %s,"
 msgid "Thanks for your order. Please transfer the amount due using the bank details below — your order is reserved until the money arrives."
 msgstr "Vielen Dank für Ihre Bestellung. Bitte überweisen Sie den offenen Betrag auf die unten stehende Bankverbindung – Ihre Bestellung ist bis zum Zahlungseingang für Sie reserviert."
 
+#: src/Gateway/BankTransferGateway.php:787
+#: src/Gateway/BankTransferGateway.php:1021
 #: templates/emails/plain/customer-awaiting-transfer.php:30
 msgid "Payment reference:"
 msgstr "Verwendungszweck:"
@@ -660,3 +661,19 @@ msgstr "Teilzahlung per Banküberweisung erhalten: %1$s von %2$s. Noch offen: %3
 #, php-format
 msgid "The bank transfer exceeded the order amount. The customer's cash balance in Stripe now holds %s."
 msgstr "Die Banküberweisung war höher als der Bestellbetrag. Das Guthaben des Kunden bei Stripe beträgt jetzt %s."
+
+#: src/Gateway/BankTransferGateway.php:776
+msgid "Order total:"
+msgstr "Gesamtbetrag:"
+
+#: src/Gateway/BankTransferGateway.php:777
+msgid "Already received:"
+msgstr "Bereits eingegangen:"
+
+#: src/Gateway/BankTransferGateway.php:778
+msgid "Still outstanding:"
+msgstr "Noch offen:"
+
+#: src/Gateway/BankTransferGateway.php:821
+msgid "Important: Please enter the payment reference exactly as shown, so your transfer is matched to this order automatically."
+msgstr "Wichtig: Geben Sie den Verwendungszweck genau so an, wie er hier steht, damit Ihre Überweisung automatisch dieser Bestellung zugeordnet wird."
