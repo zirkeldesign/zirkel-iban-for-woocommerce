@@ -116,6 +116,7 @@ final class BankTransferGateway extends WC_Payment_Gateway
         });
         add_action('woocommerce_update_options_payment_gateways_'.$this->id, [$this, 'clear_integration_cache']);
         add_action('woocommerce_thankyou_'.$this->id, [$this, 'thankyou_page']);
+        add_action('woocommerce_view_order', [$this, 'view_order_instructions'], 5);
         add_action('woocommerce_email_before_order_table', [$this, 'email_instructions'], 10, 3);
         add_action('admin_notices', [$this, 'admin_notices']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_assets']);
@@ -702,6 +703,23 @@ final class BankTransferGateway extends WC_Payment_Gateway
     }
 
     /**
+     * Shows the transfer details on the order in My Account while the transfer is outstanding.
+     *
+     * The thank-you page and the email are the only other places that carry them, so a customer
+     * who comes back later, or after a partial payment, would otherwise not know where to pay.
+     */
+    public function view_order_instructions(int $order_id): void
+    {
+        $order = wc_get_order($order_id);
+
+        if (! $order instanceof WC_Order || $order->get_payment_method() !== $this->id || ! $order->has_status($this->order_status_awaiting)) {
+            return;
+        }
+
+        $this->thankyou_page($order_id);
+    }
+
+    /**
      * Render bank-transfer instructions for the customer.
      *
      * @param  array<string, mixed>  $bankDetails
@@ -751,21 +769,57 @@ final class BankTransferGateway extends WC_Payment_Gateway
         }
 
         echo '<div class="btpw-payment-details">';
-        echo '<p><strong>'.esc_html__('Amount:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post(wc_price($order->get_total(), ['currency' => $order->get_currency()])).'</p>';
+        $received = ((int) $order->get_meta('_btpw_amount_received')) / 100;
+        $price = static fn (float $amount): string => wc_price($amount, ['currency' => $order->get_currency()]);
+
+        if ($received > 0 && $received < $order->get_total()) {
+            echo '<p><strong>'.esc_html__('Order total:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post($price($order->get_total())).'</p>';
+            echo '<p><strong>'.esc_html__('Already received:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post($price($received)).'</p>';
+            echo '<p><strong>'.esc_html__('Still outstanding:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post($price($order->get_total() - $received)).'</p>';
+        } else {
+            echo '<p><strong>'.esc_html__('Amount:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post($price($order->get_total())).'</p>';
+        }
         echo '<p><strong>'.esc_html__('Order Number:', 'zirkel-iban-for-woocommerce').'</strong> '.esc_html($order->get_order_number()).'</p>';
+
+        $reference = self::paymentReference($bankDetails);
+
+        if ($reference !== '') {
+            echo '<p><strong>'.esc_html__('Payment reference:', 'zirkel-iban-for-woocommerce').'</strong> <span class="btpw-detail__value">'.esc_html($reference).'</span></p>';
+        }
 
         if (isset($bankDetails['hosted_instructions_url'])) {
             echo '<p><a href="'.esc_url($bankDetails['hosted_instructions_url']).'" class="button" target="_blank" rel="noopener">'.esc_html__('View Full Instructions', 'zirkel-iban-for-woocommerce').'</a></p>';
         }
         echo '</div>';
 
-        echo '<p class="btpw-important-notice">'.esc_html__('Important: Please include your order number as the payment reference.', 'zirkel-iban-for-woocommerce').'</p>';
+        echo '<p class="btpw-important-notice">'.esc_html(self::referenceNotice($bankDetails)).'</p>';
 
         if ($sepaAddress !== null) {
             echo '<p class="btpw-vop-notice">'.esc_html(self::vopNotice()).'</p>';
         }
 
         echo '</section>';
+    }
+
+    /**
+     * The reference Stripe matches an incoming transfer against.
+     *
+     * Each customer has their own virtual account, and Stripe reconciles by this reference or by
+     * amount. The order number means nothing to Stripe, so it is the wrong thing to ask for.
+     *
+     * @param  array<string, mixed>  $bankDetails
+     */
+    public static function paymentReference(array $bankDetails): string
+    {
+        return is_string($bankDetails['reference'] ?? null) ? trim($bankDetails['reference']) : '';
+    }
+
+    /** @param  array<string, mixed>  $bankDetails */
+    public static function referenceNotice(array $bankDetails): string
+    {
+        return self::paymentReference($bankDetails) !== ''
+            ? __('Important: Please enter the payment reference exactly as shown, so your transfer is matched to this order automatically.', 'zirkel-iban-for-woocommerce')
+            : __('Important: Please include your order number as the payment reference.', 'zirkel-iban-for-woocommerce');
     }
 
     /**
@@ -961,7 +1015,13 @@ final class BankTransferGateway extends WC_Payment_Gateway
             echo "\n";
         }
 
-        echo esc_html__('Important: Please include your order number as the payment reference.', 'zirkel-iban-for-woocommerce')."\n";
+        $reference = self::paymentReference($bankDetails);
+
+        if ($reference !== '') {
+            echo esc_html(__('Payment reference:', 'zirkel-iban-for-woocommerce').' '.$reference)."\n";
+        }
+
+        echo esc_html(self::referenceNotice($bankDetails))."\n";
 
         if ($hasSepa) {
             echo esc_html(self::vopNotice())."\n";
