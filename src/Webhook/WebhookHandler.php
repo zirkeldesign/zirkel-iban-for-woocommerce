@@ -10,6 +10,7 @@ use Throwable;
 use WC_Order;
 use WP_REST_Request;
 use WP_REST_Response;
+use ZirkelDesign\BankTransfersForWooCommerce\Gateway\BankTransferGateway;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -93,6 +94,16 @@ final class WebhookHandler
         $object = $event['data']['object'] ?? [];
 
         if (! is_array($object)) {
+            return;
+        }
+
+        // The endpoint receives every PaymentIntent of the account, and card or SEPA intents of
+        // other gateways carry the same order_id metadata. Only bank-transfer orders are ours.
+        $order = $this->get_order_from_payment_intent($object);
+
+        if ($order !== null && $order->get_payment_method() !== BankTransferGateway::GATEWAY_ID) {
+            $this->log(sprintf('Ignoring %s for order #%d, paid with %s', $type, $order->get_id(), $order->get_payment_method()));
+
             return;
         }
 
