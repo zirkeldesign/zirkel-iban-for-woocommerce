@@ -156,3 +156,28 @@ describe('WebhookHandler::dispatch status mapping', function (): void {
         (new WebhookHandler)->dispatch(btpw_event('payment_intent.created', ['id' => 'pi_x']));
     })->throwsNoExceptions();
 });
+
+describe('WebhookHandler::dispatch other gateways', function (): void {
+    it('leaves orders of other gateways untouched', function (string $type): void {
+        $order = new WC_Order(id: 300, paymentMethod: 'stripe_cc');
+        btpw_register_order($order);
+
+        (new WebhookHandler)->dispatch(btpw_event($type, [
+            'id' => 'pi_card',
+            'metadata' => ['order_id' => 300],
+            'last_payment_error' => ['message' => 'Card declined'],
+        ]));
+
+        expect($order->status)->toBe('pending')
+            ->and($order->completed_with)->toBeNull()
+            ->and($order->notes)->toBe([])
+            ->and($order->saved)->toBeFalse();
+    })->with([
+        'payment_intent.succeeded',
+        'payment_intent.payment_failed',
+        'payment_intent.canceled',
+        'payment_intent.processing',
+        'payment_intent.requires_action',
+        'payment_intent.partially_funded',
+    ]);
+});
