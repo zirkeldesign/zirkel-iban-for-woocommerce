@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.4] - 2026-11-12
+
+### Fixed
+- Partial payments: the received amount comes from `next_action.display_bank_transfer_instructions.amount_remaining`, because a `customer_balance` PaymentIntent keeps `amount_received` at 0 until it succeeds. The note and `btpw_payment_partially_funded` reported 0 before.
+
+### Added
+- `customer_cash_balance_transaction.created` is handled: an overpayment is noted on the paid order (`_btpw_cash_balance_left`) and `btpw_payment_overfunded` fires. Existing webhook endpoints need this event added.
+
+### Changed
+- Translation files regenerated; two untranslated strings translated, unused strings dropped.
+
 ## [1.1.3] - 2026-11-12
 
 ### Fixed
