@@ -371,7 +371,7 @@ if (! class_exists('WC_Payment_Gateway')) {
 
         public function get_option(string $key, mixed $default = ''): mixed
         {
-            return $GLOBALS['btpw_test_gateway_settings'][$key] ?? ($this->settings[$key] ?? $default);
+            return $GLOBALS['btpw_test_gateway_settings'][$key] ?? ($this->settings[$key] ?? $default ?? '');
         }
 
         public function supports(string $feature): bool
@@ -392,7 +392,14 @@ if (! class_exists('WC_Payment_Gateway')) {
 
         public function process_admin_options(): bool
         {
+            $this->settings = array_merge($this->settings, $GLOBALS['btpw_test_posted_settings'] ?? []);
+
             return true;
+        }
+
+        public function get_option_key(): string
+        {
+            return 'woocommerce_'.$this->id.'_settings';
         }
     }
 }

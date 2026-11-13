@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Stripe keys and the webhook secret move to the WordPress Secrets API (7.2+) when the gateway settings are saved and `WP_SECRETS_KEY` is usable. A value in the settings always wins, so nothing changes on older WordPress, on sites without the constant, or until the merchant saves. An unreadable secret leaves the gateway without a key, hides the payment method if that was the key in use, and shows a notice on the settings screen instead of falling back; saving the form then keeps it, so a restored key can read it again. Uninstall removes the secrets.
+
 ## [1.1.6] - 2026-11-12
 
 ### Fixed

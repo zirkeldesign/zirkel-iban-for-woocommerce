@@ -64,6 +64,9 @@ Yes. This plugin uses Stripe's bank-transfer (customer_balance) feature; availab
 = Does it work with the official WooCommerce Stripe gateway installed? =
 Yes. It can reuse the API credentials stored by the official WooCommerce Stripe Gateway or by Payment Plugins for Stripe WooCommerce, so you do not have to enter keys twice.
 
+= Can I keep my Stripe keys out of the database? =
+On WordPress 7.2 or newer, define `WP_SECRETS_KEY` in wp-config.php and save the gateway settings once. Your keys and the webhook secret then move to the encrypted WordPress Secrets API and no longer sit in the database in plain text. Without that constant they stay in the gateway settings as before. Keep the constant safe: if it is lost, the keys have to be entered again.
+
 = Is the webhook required? =
 Yes, for automatic reconciliation. A signing secret must be configured — the plugin refuses to process unverified webhook requests.
 

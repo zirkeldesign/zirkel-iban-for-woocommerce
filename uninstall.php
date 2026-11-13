@@ -14,3 +14,9 @@ if (! defined('WP_UNINSTALL_PLUGIN')) {
 }
 
 delete_option('woocommerce_stripe_bank_transfer_settings');
+
+if (function_exists('wp_delete_secret')) {
+    wp_delete_secret('zirkel-iban-for-woocommerce/test_secret_key');
+    wp_delete_secret('zirkel-iban-for-woocommerce/live_secret_key');
+    wp_delete_secret('zirkel-iban-for-woocommerce/webhook_secret');
+}

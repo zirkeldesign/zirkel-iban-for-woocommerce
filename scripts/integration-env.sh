@@ -62,6 +62,13 @@ else
         --admin_user=admin --admin_password=admin --admin_email=dev@example.test --skip-email --quiet
 fi
 
+# Since core r65385 the Secrets API refuses every call without a usable key. A throwaway one
+# keeps SecretsApiTest meaningful; WordPress before 7.2 ignores the constant.
+if ! wp config has WP_SECRETS_KEY --path="$WP_DIR" 2>/dev/null; then
+    echo "› Setting a test WP_SECRETS_KEY"
+    wp config set WP_SECRETS_KEY "$(php -r 'echo base64_encode(random_bytes(32));')" --path="$WP_DIR" --quiet
+fi
+
 echo "› Installing WooCommerce"
 wp plugin install woocommerce --path="$WP_DIR" --activate --force --quiet
 
@@ -107,6 +114,9 @@ BTPW_STRIPE_KEY="$STRIPE_KEY" wp eval '
     $s += ["transfer_type" => "eu_bank_transfer", "default_currency" => "eur"];
     update_option("woocommerce_stripe_bank_transfer_settings", $s);
 ' --path="$WP_DIR" --quiet
+
+# A fresh WooCommerce defaults to USD, and eu_bank_transfer accepts EUR only.
+wp option update woocommerce_currency EUR --path="$WP_DIR" --quiet
 
 if [[ -z "$(wp post list --post_type=product --format=ids --path="$WP_DIR" 2>/dev/null)" ]]; then
     wp wc product create --name="Lastenrad Testartikel" --type=simple --regular_price=249 \
