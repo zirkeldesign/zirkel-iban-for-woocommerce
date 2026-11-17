@@ -4,7 +4,7 @@ Tags: bank transfer, vorkasse, banküberweisung, sepa, iban
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.3
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,11 @@ Built DACH-first: SEPA / EUR is the default, with a German (Sie and Du) interfac
 * HPOS (High-Performance Order Storage) compatible.
 
 This plugin requires a Stripe account and the WooCommerce plugin. Stripe is a third-party payment service; by using this plugin payment data is transmitted to Stripe (see the Stripe [Privacy Policy](https://stripe.com/privacy) and [Terms](https://stripe.com/legal)).
+
+= More from zirkel.design =
+
+* [Privacy CAPTCHA for Cap](https://wordpress.org/plugins/privacy-captcha-for-cap/): privacy-friendly spam protection for comments, login, WooCommerce and Gravity Forms, verified against your own Cap server.
+* [Regex Validation for Gravity Forms](https://wordpress.org/plugins/regex-validation-for-gravity-forms/): regular expression validation for Gravity Forms fields, with Unicode support and ready-made presets.
 
 == External services ==
 
@@ -91,7 +96,19 @@ Since 9 October 2025 every SEPA transfer in the EU/EEA goes through Verification
 = Does it support WooCommerce Subscriptions? =
 Bank transfers cannot be charged automatically, so subscription renewals are always manual: each renewal issues a fresh virtual bank account for the customer to pay. This is available as an optional add-on feature.
 
+= Where do I report a security issue? =
+
+Please do not post it in an issue or the support forum. Report it privately through [GitHub security advisories](https://github.com/zirkeldesign/zirkel-iban-for-woocommerce/security/advisories/new). We confirm receipt, fix it, and credit you in the changelog unless you prefer not to be named.
+
+= Found a bug or have an idea? =
+
+Please open an issue on [GitHub](https://github.com/zirkeldesign/zirkel-iban-for-woocommerce/issues) or ask in the [support forum](https://wordpress.org/support/plugin/zirkel-iban-for-woocommerce/).
+
 == Changelog ==
+
+= 1.1.7 =
+* Added: FAQ entries on how to report a security issue privately and where to send bugs and ideas.
+* Improved: tested and confirmed compatible with WooCommerce 11.3.
 
 = 1.1.6 =
 * Fixed: The bank transfer instructions could not be shown on the order confirmation page, in My Account and in the email since 1.1.5.
