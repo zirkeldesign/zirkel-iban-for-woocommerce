@@ -17,26 +17,15 @@ are **not** part of the installed plugin — `.distignore` keeps the whole
 
 ## Design
 
-Follows the house style of `privacy-captcha-for-cap` and
-`regex-validation-for-gravity-forms`: a diagonal two-stop gradient, a white
-glyph, and the plugin name set right of a translucent badge.
+One system with the other zirkel.design plugins (`privacy-captcha-for-cap`, `regex-validation-for-gravity-forms`): the plugin colour as a flat ground, a white form, and a check in a darker shade of the same colour. In the banner the plugin name and one line on the left, and on the right the product itself rather than decoration.
 
-- **Gradient:** `#0e3a63` → `#0aa2dd`. Deliberately distinct from its siblings
-  (navy→orange, teal→green) so the three are told apart in a directory listing,
-  and deliberately *not* WooCommerce purple or Stripe indigo — a plugin has no
-  business implying either brand's endorsement.
-- **Glyph:** a bank façade, which reads at 128 px where a wordmark would not,
-  and is understood as *Banküberweisung* across the DACH market.
-- **Check badge:** the automatic reconciliation is what the product sells, so it
-  gets its own mark rather than being left to the copy.
+- **Colour:** `#1677c4` ground, check in `#0b2a47`. Deliberately not WooCommerce purple or Stripe indigo: the plugin has no business implying either brand's endorsement.
+- **Glyph:** a transfer slip with its reference line, ticked off. The automatic match is what the product sells.
+- **Banner scene:** what the customer sees at checkout (the IBAN and the order) with the "Matched" state.
 
-Both SVGs declare their gradient with `gradientUnits="userSpaceOnUse"` so every
-shape samples the same gradient. The icon's badge relies on this: its outer ring
-is painted with the gradient and therefore disappears into the background,
-cutting a clean gap between the badge and the façade beneath it.
+Every white glyph that the check crosses has a gap painted in the ground colour behind the check, so the two never touch.
 
-The IBAN in the banner is `DE89 3704 0044 0532 0130 00` — the standard
-documentation IBAN, not a real account.
+The IBAN in the banner is `DE89 3704 0044 0532 0130 00`, the standard documentation IBAN, not a real account.
 
 ## Regenerating the PNGs
 
