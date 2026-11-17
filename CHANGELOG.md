@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.7] - 2026-11-17
+
+### Added
+- readme FAQ entries: private security reporting via GitHub Security Advisories, and where to report bugs and ideas.
+- The description lists the other zirkel.design plugins on wordpress.org.
+
+### Changed
+- `WC tested up to` raised to 11.3.
+
 ## [1.1.6] - 2026-11-12
 
 ### Fixed
