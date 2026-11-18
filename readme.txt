@@ -2,9 +2,9 @@
 Contributors: zirkeldesign, d.sturm
 Tags: bank transfer, vorkasse, banküberweisung, sepa, iban
 Requires at least: 6.5
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 8.3
-Stable tag: 1.1.8
+Stable tag: 1.1.9
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,6 +105,9 @@ Please do not post it in an issue or the support forum. Report it privately thro
 Please open an issue on [GitHub](https://github.com/zirkeldesign/zirkel-iban-for-woocommerce/issues) or ask in the [support forum](https://wordpress.org/support/plugin/zirkel-iban-for-woocommerce/).
 
 == Changelog ==
+
+= 1.1.9 =
+* Improved: tested and confirmed compatible with WordPress 7.2.
 
 = 1.1.8 =
 * Fixed: the GiroCode for banking apps now appears on the thank-you page and in the customer account.

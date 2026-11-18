@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.9] - 2026-12-08
+
+### Changed
+
+- Tested with WordPress 7.2. Verified against WordPress 7.2 RC1: Pint, PHPStan, 92 unit tests and Plugin Check on the built zip (0 errors, 0 warnings); the integration suite (20) with WooCommerce 11.3 against the Stripe test API. Exposure: no blocks, no media pipeline, no REST routes of its own.
+
 ## [1.1.8] - 2026-11-23
 
 ### Fixed
