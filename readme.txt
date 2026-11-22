@@ -35,8 +35,10 @@ This plugin requires a Stripe account and the WooCommerce plugin. Stripe is a th
 
 = More from zirkel.design =
 
-* [Privacy CAPTCHA for Cap](https://wordpress.org/plugins/privacy-captcha-for-cap/): privacy-friendly spam protection for comments, login, WooCommerce and Gravity Forms, verified against your own Cap server.
+* [Course Embed for Viona](https://wordpress.org/plugins/course-embed-for-viona/): embed the Viona course list of your IBB partner account with a block or a shortcode.
+* [Privacy CAPTCHA for Cap](https://wordpress.org/plugins/privacy-captcha-for-cap/): privacy-friendly spam protection for login, comments, WooCommerce and form plugins, verified against your own Cap server.
 * [Regex Validation for Gravity Forms](https://wordpress.org/plugins/regex-validation-for-gravity-forms/): regular expression validation for Gravity Forms fields, with Unicode support and ready-made presets.
+* [Zirkel AI Image Disclosure](https://wordpress.org/plugins/zirkel-ai-image-disclosure/): a small, accessible label for AI-generated images, set automatically from their IPTC or C2PA metadata on upload.
 
 == External services ==
 
