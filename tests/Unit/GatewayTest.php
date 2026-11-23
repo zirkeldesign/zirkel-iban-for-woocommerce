@@ -328,6 +328,27 @@ describe('Transfer details on the My Account order', function (): void {
             ->and($html)->toContain('39.00 EUR');
     });
 
+    it('pre-fills the GiroCode with the outstanding amount and the Stripe reference', function (): void {
+        $order = new WC_Order(id: 4804, total: 89.0);
+        $order->status = 'awaiting-transfer';
+        $order->update_meta_data('_btpw_amount_received', '6100');
+        $order->update_meta_data('_stripe_bank_transfer_details', (string) wp_json_encode([
+            'reference' => 'TPSSJUNAM5GS',
+            'financial_addresses' => [['type' => 'iban', 'iban' => ['iban' => 'DE89370400440532013000', 'bic' => 'COBADEFFXXX', 'account_holder_name' => 'Stripe Payments Europe, Limited']]],
+        ]));
+        $GLOBALS['btpw_test_orders'][$order->get_id()] = $order;
+
+        ob_start();
+        (new BankTransferGateway)->view_order_instructions($order->get_id());
+        $html = (string) ob_get_clean();
+
+        preg_match('/data-girocode="([^"]+)"/', $html, $match);
+        $payload = explode("\n", base64_decode($match[1] ?? ''));
+
+        expect($payload[7] ?? null)->toBe('EUR28.00')
+            ->and($payload[10] ?? null)->toBe('TPSSJUNAM5GS');
+    });
+
     it('shows nothing once paid or for other gateways', function (string $status, string $method): void {
         $order = new WC_Order(id: 4803, total: 89.0, paymentMethod: $method);
         $order->status = $status;

@@ -764,20 +764,22 @@ final class BankTransferGateway extends WC_Payment_Gateway
 
         // GiroCode (EPC069-12) for SEPA/EUR on the thank-you page. JS-rendered,
         // so it is skipped in emails, where no script runs.
-        if (! $forEmail && $sepaAddress !== null) {
-            $this->render_girocode($sepaAddress, $order);
-        }
-
-        echo '<div class="btpw-payment-details">';
         // WC_Order::get_total() returns a numeric string, not a float.
         $total = (float) $order->get_total();
         $received = ((int) $order->get_meta('_btpw_amount_received')) / 100;
+        $outstanding = $received > 0 && $received < $total ? $total - $received : $total;
+
+        if (! $forEmail && $sepaAddress !== null) {
+            $this->render_girocode($sepaAddress, $order, $outstanding, self::paymentReference($bankDetails));
+        }
+
+        echo '<div class="btpw-payment-details">';
         $price = static fn (float $amount): string => wc_price($amount, ['currency' => $order->get_currency()]);
 
         if ($received > 0 && $received < $total) {
             echo '<p><strong>'.esc_html__('Order total:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post($price($total)).'</p>';
             echo '<p><strong>'.esc_html__('Already received:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post($price($received)).'</p>';
-            echo '<p><strong>'.esc_html__('Still outstanding:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post($price($total - $received)).'</p>';
+            echo '<p><strong>'.esc_html__('Still outstanding:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post($price($outstanding)).'</p>';
         } else {
             echo '<p><strong>'.esc_html__('Amount:', 'zirkel-iban-for-woocommerce').'</strong> '.wp_kses_post($price($total)).'</p>';
         }
@@ -909,9 +911,13 @@ final class BankTransferGateway extends WC_Payment_Gateway
     /**
      * Render a scannable GiroCode (EPC069-12) for a SEPA/EUR transfer.
      *
+     * The amount is what is still outstanding and the remittance is Stripe's
+     * payment reference, because Stripe reconciles by that reference and not by
+     * the order number. Without a reference the order number stays as before.
+     *
      * @param  array<string, mixed>  $sepa  The SEPA financial address.
      */
-    private function render_girocode(array $sepa, WC_Order $order): void
+    private function render_girocode(array $sepa, WC_Order $order, float $amount, string $reference): void
     {
         if (strtoupper($order->get_currency()) !== 'EUR') {
             return;
@@ -931,8 +937,8 @@ final class BankTransferGateway extends WC_Payment_Gateway
             $accountHolderName,
             (string) ($sepa['iban'] ?? ''),
             (string) ($sepa['bic'] ?? ''),
-            (float) $order->get_total(),
-            (string) $order->get_order_number()
+            $amount,
+            $reference !== '' ? $reference : (string) $order->get_order_number()
         );
 
         if ($payload === null) {
