@@ -622,7 +622,7 @@ msgstr "Ihre Bestellung wird versendet, sobald die Überweisung eingegangen ist.
 
 #: src/Gateway/BankTransferGateway.php:838
 msgid "Your bank checks the recipient name against the IBAN before releasing the transfer. Please enter the account holder name exactly as shown above. The payment is handled by our payment provider, so this name can differ from our shop name - that is normal."
-msgstr "Ihre Bank prüft den Empfängernamen gegen die IBAN, bevor die Überweisung ausgeführt wird. Bitte übernehmen Sie den Kontoinhaber genau so, wie er oben steht. Die Zahlung wickelt unser Zahlungsdienstleister ab, deshalb kann dieser Name von unserem Shop-Namen abweichen - das ist normal."
+msgstr "Ihre Bank prüft den Empfängernamen gegen die IBAN, bevor die Überweisung ausgeführt wird. Bitte übernehmen Sie den Kontoinhaber genau so, wie er oben steht. Die Zahlung wickelt unser Zahlungsdienstleister ab, deshalb kann dieser Name von unserem Firmennamen abweichen - das ist normal."
 
 #. translators: %s: Customer first name.
 #: templates/emails/customer-awaiting-transfer.php:20
@@ -676,4 +676,4 @@ msgstr "Noch offen:"
 
 #: src/Gateway/BankTransferGateway.php:821
 msgid "Important: Please enter the payment reference exactly as shown, so your transfer is matched to this order automatically."
-msgstr "Wichtig: Geben Sie den Verwendungszweck genau so an, wie er hier steht, damit Ihre Überweisung automatisch dieser Bestellung zugeordnet wird."
+msgstr "Wichtig: Geben Sie den oben genannten Verwendungszweck an, damit Ihre Überweisung automatisch dieser Bestellung zugeordnet wird."

@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- The GiroCode never appeared: `scripts/build-dist.sh` excluded every directory named `vendor`, so `assets/js/vendor/qrcode.js` was missing from the release zip and from wordpress.org. Only the root `vendor/` and `vendor-prefixed/` are excluded now.
+- After a partial payment the GiroCode pre-filled the order total instead of the outstanding amount.
+- The GiroCode pre-filled the order number as remittance, which Stripe does not reconcile against. It now carries Stripe's payment reference, and the order number only when there is none.
+
+### Changed
+- German: the reference notice asks for "den oben genannten Verwendungszweck", and the payee notice says "Firmennamen" instead of "Shop-Namen".
+
 ## [1.1.7] - 2026-11-17
 
 ### Added

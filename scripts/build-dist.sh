@@ -37,8 +37,8 @@ mkdir -p "$BUILD" "$ROOT/dist"
 rsync -a \
   --exclude='.git' \
   --exclude='node_modules' \
-  --exclude='vendor' \
-  --exclude='vendor-prefixed' \
+  --exclude='/vendor' \
+  --exclude='/vendor-prefixed' \
   --exclude='dist' \
   --exclude='build' \
   ./ "$BUILD/"
