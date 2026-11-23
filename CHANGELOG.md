@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.8] - 2026-11-23
+
 ### Fixed
 - The GiroCode never appeared: `scripts/build-dist.sh` excluded every directory named `vendor`, so `assets/js/vendor/qrcode.js` was missing from the release zip and from wordpress.org. Only the root `vendor/` and `vendor-prefixed/` are excluded now.
 - After a partial payment the GiroCode pre-filled the order total instead of the outstanding amount.
